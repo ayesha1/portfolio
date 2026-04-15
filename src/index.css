@@ -63,11 +63,11 @@
     inset: 0;
     z-index: -1;
     border-radius: inherit;
-    backdrop-filter: url(#liquid-glass-active);
-    -webkit-backdrop-filter: url(#liquid-glass-active);
+    backdrop-filter: blur(12px) saturate(1.4);
+    -webkit-backdrop-filter: blur(12px) saturate(1.4);
   }
 
-  /* Liquid glass overlay card — same effect as nav bar */
+  /* Liquid glass overlay card */
   .glass-overlay-card {
     position: relative;
     isolation: isolate;
@@ -83,8 +83,8 @@
     inset: 0;
     z-index: -1;
     border-radius: inherit;
-    backdrop-filter: url(#liquid-glass-filter);
-    -webkit-backdrop-filter: url(#liquid-glass-filter);
+    backdrop-filter: blur(40px) saturate(1.5);
+    -webkit-backdrop-filter: blur(40px) saturate(1.5);
   }
 
   /* Glassmorphic tag pills */
@@ -113,8 +113,8 @@
     inset: 0;
     z-index: -1;
     border-radius: inherit;
-    backdrop-filter: url(#liquid-glass-filter);
-    -webkit-backdrop-filter: url(#liquid-glass-filter);
+    backdrop-filter: blur(30px) saturate(1.5);
+    -webkit-backdrop-filter: blur(30px) saturate(1.5);
   }
 
   /* Dark mode — when nav is over white cards */
