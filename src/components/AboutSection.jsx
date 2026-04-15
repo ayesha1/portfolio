@@ -255,7 +255,39 @@ export default function AboutSection() {
             </div>
           </div>
 
+          {/* Scattered emojis */}
+          {[
+            { emoji: '👍', top: '60%', right: '-50px', delay: 1.4, size: '22px' },
+            { emoji: '🌸', top: '20%', left: '-45px', delay: 1.8, size: '20px' },
+            { emoji: '🦜', top: '55%', right: '-65px', delay: 2.2, size: '24px' },
+            { emoji: '🚴🏽‍♀️', top: '88%', left: '-55px', delay: 2.6, size: '22px' },
+          ].map((e, i) => (
+            <div
+              key={i}
+              className="absolute z-20 transition-all duration-700"
+              style={{
+                top: e.top,
+                left: e.left,
+                right: e.right,
+                fontSize: e.size,
+                opacity: visible ? 1 : 0,
+                transform: visible ? 'scale(1) translateY(0)' : 'scale(0.3) translateY(10px)',
+                transitionDelay: `${e.delay}s`,
+                animation: visible ? `emojiFloat ${3 + i * 0.5}s ease-in-out ${e.delay + 0.5}s infinite` : 'none',
+              }}
+            >
+              {e.emoji}
+            </div>
+          ))}
+
         </div>
+
+        <style>{`
+          @keyframes emojiFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(5deg); }
+          }
+        `}</style>
       </div>
 
       {/* Folder window popup */}

@@ -16,6 +16,11 @@ const caseStudies = [
     },
     type: 'chatbot',
     reverse: true,
+    stats: [
+      { value: '50%', label: 'Automated Resolution' },
+      { value: '20x', label: 'Data Processing' },
+      { value: '200%', label: 'Increase in Users' },
+    ],
   },
   {
     tags: ['3D Design', 'E-commerce'],
@@ -30,6 +35,11 @@ const caseStudies = [
       secondary: ['/viewer-mobile.gif', '/viewer-desktop.gif'],
     },
     type: 'images',
+    stats: [
+      { value: '204%', label: 'Increase in session time vs. e-commerce' },
+      { value: '182%', label: 'Higher conversion vs. e-commerce' },
+      { value: '90%', label: 'Completion of flow click-through rate' },
+    ],
   },
   {
     tags: ['AI Research', 'Founding Designer'],
@@ -37,9 +47,14 @@ const caseStudies = [
     description:
       'An interactive system that visualizes sound in real time, converting voice and audio into dynamic visual experiences for medical research.\n\nA voice research initiative using vocal biomarkers to detect COVID-19 through Machine Learning.',
     categories: ['Audio Visualization', 'Founding Designer'],
-    logos: [],
+    logos: ['/sonaphi-logo.png'],
     type: 'vri',
     reverse: true,
+    stats: [
+      { value: '200%', label: 'Completion of flow click-through rate' },
+      { value: '60%', label: '5-Star Positive Ratings on App' },
+      { value: '+$100K', label: 'Budget Increase from Stakeholders', icon: 'dollar' },
+    ],
     floatingCard: {
       title: 'Reopen the World with AI',
       description: 'Clinical Research app that powers an AI COVID-19 detection app',
@@ -107,10 +122,28 @@ function FeaturedCard({ study, index }) {
               </div>
             </div>
 
+            {study.stats && (
+              <div className="flex gap-8 mb-10">
+                {study.stats.map((stat) => (
+                  <div key={stat.label} className="flex flex-col">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      {stat.icon !== 'dollar' && (
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round">
+                          <path d="M12 19V5M5 12l7-7 7 7" />
+                        </svg>
+                      )}
+                      <span className="text-2xl font-bold text-gray-900">{stat.value}</span>
+                    </div>
+                    <span className="text-[12px] text-gray-400">{stat.label}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
             {study.logos && study.logos.length > 0 && (
               <div className="flex items-center gap-8">
                 {study.logos.map((logo) => (
-                  <img key={logo} src={logo} alt="" className="h-10 object-contain opacity-70" />
+                  <img key={logo} src={logo} alt="" className="h-8 max-w-[120px] object-contain opacity-70" />
                 ))}
               </div>
             )}
@@ -138,13 +171,13 @@ function FeaturedCard({ study, index }) {
 
             {study.floatingCard && (
               <div
-                className={`absolute z-30 -translate-y-1/2 rounded-2xl overflow-hidden glass-overlay-card ${study.reverse ? 'right-[5%] w-[240px] top-[35%]' : 'left-[12%] w-[210px] top-[55%]'}`}
+                className={`absolute z-30 -translate-y-1/2 rounded-2xl overflow-hidden glass-overlay-card ${study.reverse ? 'right-[5%] w-[240px] top-[45%]' : 'left-[12%] w-[210px] top-[55%]'}`}
                 style={{
                   opacity: visible ? undefined : 0,
                   animation: visible ? 'chatbotFadeUp 600ms ease-out 2.5s both' : 'none',
                 }}
               >
-                <div className="absolute inset-0 rounded-2xl bg-white/70 backdrop-blur-[40px]" style={{ zIndex: -1 }} />
+                <div className="absolute inset-0 rounded-2xl bg-white/95 backdrop-blur-[40px]" style={{ zIndex: -1 }} />
                 <div className="relative px-5 py-5">
                   <span className="text-2xl block mb-2">✨</span>
                   <h4 className="text-sm font-bold text-gray-900 leading-snug mb-2">
