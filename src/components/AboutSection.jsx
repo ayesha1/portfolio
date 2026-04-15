@@ -170,21 +170,30 @@ export default function AboutSection() {
           </div>
 
           {/* "Who Am I?" overlaid on top of image */}
+          <div className="absolute top-6 left-4 right-4 z-10">
+            <div className="absolute inset-[-20px] backdrop-blur-[8px] pointer-events-none" style={{
+              WebkitBackdropFilter: 'blur(8px)',
+              maskImage: 'radial-gradient(ellipse 100% 100% at center, black 20%, transparent 70%)',
+              WebkitMaskImage: 'radial-gradient(ellipse 100% 100% at center, black 20%, transparent 70%)',
+            }} />
+          </div>
           <div className="absolute top-8 left-6 right-6 z-10">
-            <h2 className="font-serif text-5xl lg:text-6xl text-white leading-[1] drop-shadow-[0_2px_20px_rgba(0,0,0,0.3)]">
+            <h2 className="font-serif text-5xl lg:text-6xl text-white leading-[1]" style={{ WebkitTextStroke: '0.5px rgba(0,0,0,0.3)', textShadow: '0 2px 20px rgba(0,0,0,0.3)' }}>
               Who{' '}
               <span className="relative inline-block">
                 <span
                   className="absolute inset-[-3px_-6px] rounded-[8px] transition-all duration-500"
                   style={{
-                    background: highlighted ? 'rgba(59, 130, 246, 0.25)' : 'transparent',
-                    border: highlighted ? '2px solid rgba(59, 130, 246, 0.5)' : '2px solid transparent',
-                    boxShadow: highlighted ? '0 0 12px rgba(59, 130, 246, 0.2)' : 'none',
+                    background: highlighted ? 'rgba(147, 197, 253, 0.2)' : 'transparent',
+                    border: highlighted ? '2px solid rgba(147, 197, 253, 0.4)' : '2px solid transparent',
+                    boxShadow: highlighted ? '0 0 12px rgba(147, 197, 253, 0.2)' : 'none',
+                    backdropFilter: highlighted ? 'blur(8px)' : 'none',
+                    WebkitBackdropFilter: highlighted ? 'blur(8px)' : 'none',
                   }}
                 />
                 <span
                   className="relative transition-colors duration-500"
-                  style={{ color: highlighted ? '#60a5fa' : 'white' }}
+                  style={{ color: highlighted ? '#93c5fd' : 'white' }}
                 >
                   Am I
                 </span>
@@ -246,13 +255,6 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* Bottom text */}
-          <p
-            className="absolute bottom-6 right-6 text-[13px] italic text-white/70 z-10 transition-all duration-700"
-            style={{ opacity: visible ? 1 : 0, transitionDelay: '3s' }}
-          >
-            So how do I figure out who I am?
-          </p>
         </div>
       </div>
 

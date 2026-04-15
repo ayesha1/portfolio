@@ -63,7 +63,7 @@ function FeaturedCard({ study, index }) {
   return (
     <div
       ref={ref}
-      className="transition-all duration-700 ease-out"
+      className="min-h-screen flex items-center py-16 transition-all duration-700 ease-out"
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(60px)',
@@ -144,7 +144,7 @@ function FeaturedCard({ study, index }) {
                   animation: visible ? 'chatbotFadeUp 600ms ease-out 2.5s both' : 'none',
                 }}
               >
-                <div className="absolute inset-0 rounded-2xl bg-white/85 backdrop-blur-[80px] backdrop-saturate-[2.5]" style={{ zIndex: -1 }} />
+                <div className="absolute inset-0 rounded-2xl bg-white/70 backdrop-blur-[40px]" style={{ zIndex: -1 }} />
                 <div className="relative px-5 py-5">
                   <span className="text-2xl block mb-2">✨</span>
                   <h4 className="text-sm font-bold text-gray-900 leading-snug mb-2">
@@ -295,7 +295,7 @@ export default function CaseStudiesSection() {
       <SideNav activeSection={activeSection} visible={navVisible} />
 
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 pt-32">
-        <div id="featured" ref={featuredRef} className="flex flex-col gap-32">
+        <div id="featured" ref={featuredRef} className="flex flex-col">
           {caseStudies.map((study, i) => (
             <FeaturedCard key={study.title} study={study} index={i} />
           ))}

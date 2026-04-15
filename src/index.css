@@ -18,7 +18,9 @@
   html {
     scroll-snap-type: y proximity;
   }
-  #about {
+  #about,
+  #featured > *,
+  #playground > * {
     scroll-snap-align: start;
   }
 }
