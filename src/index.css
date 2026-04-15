@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: none;
+  }
+  a, button, input, textarea, select {
+    cursor: none;
+  }
+  html {
+    scroll-snap-type: y proximity;
+  }
+  #about {
+    scroll-snap-align: start;
+  }
+}
+
+/* ============================================
+   LIQUID GLASS — iOS 26 style
+   ============================================ */
+
+@layer components {
+
+  .glass-nav {
+    position: relative;
+    isolation: isolate;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0px 6px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  /* ::after — the liquid glass distortion */
+  .glass-nav::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    backdrop-filter: url(#liquid-glass-filter);
+    -webkit-backdrop-filter: url(#liquid-glass-filter);
+  }
+
+  /* Active nav item — glass bubble within glass */
+  .nav-item-active {
+    position: relative;
+    isolation: isolate;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .nav-item-active::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    backdrop-filter: url(#liquid-glass-active);
+    -webkit-backdrop-filter: url(#liquid-glass-active);
+  }
+
+  /* Liquid glass overlay card — same effect as nav bar */
+  .glass-overlay-card {
+    position: relative;
+    isolation: isolate;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+      0px 8px 32px rgba(0, 0, 0, 0.1),
+      0px 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .glass-overlay-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    backdrop-filter: url(#liquid-glass-filter);
+    -webkit-backdrop-filter: url(#liquid-glass-filter);
+  }
+
+  /* Glassmorphic tag pills */
+  .glass-tag {
+    background: rgba(200, 200, 210, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Liquid glass case study card */
+  .glass-card {
+    position: relative;
+    isolation: isolate;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 6px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .glass-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    backdrop-filter: url(#liquid-glass-filter);
+    -webkit-backdrop-filter: url(#liquid-glass-filter);
+  }
+
+  /* Dark mode — when nav is over white cards */
+  .glass-nav-dark {
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0px 6px 30px rgba(0, 0, 0, 0.06);
+  }
+
+  .glass-nav-dark .nav-item-active {
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.04);
+  }
+}
