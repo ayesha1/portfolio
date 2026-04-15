@@ -56,9 +56,9 @@ export default function GlassNavBar() {
   }, [])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-6 px-4">
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-5 px-4">
       <nav
-        className={`glass-nav flex items-center gap-1.5 rounded-full px-2.5 py-2 transition-all duration-500 ease-out ${
+        className={`glass-nav flex items-center gap-1 rounded-full px-2 py-1.5 transition-all duration-500 ease-out ${
           dark ? 'glass-nav-dark' : ''
         }`}
       >
@@ -73,14 +73,14 @@ export default function GlassNavBar() {
               setActive(i)
             }}
             className={`
-              relative z-10 rounded-full px-6 py-2.5 text-[15px] font-medium
+              relative z-10 rounded-full px-5 py-2 text-[13px] font-medium tracking-wide
               transition-all duration-500 ease-out select-none whitespace-nowrap
               ${
                 active === i
-                  ? `nav-item-active ${dark ? 'text-gray-900' : 'text-white'}`
+                  ? `nav-item-active ${dark ? 'text-gray-800' : 'text-white'}`
                   : dark
-                    ? 'text-gray-700 hover:bg-black/5'
-                    : 'text-white hover:bg-white/10'
+                    ? 'text-gray-500 hover:text-gray-800 hover:bg-black/5'
+                    : 'text-white/70 hover:text-white hover:bg-white/8'
               }
             `}
           >
