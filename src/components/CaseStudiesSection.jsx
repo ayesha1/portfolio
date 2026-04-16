@@ -289,7 +289,7 @@ function SideNav({ activeSection, visible }) {
   )
 }
 
-export default function CaseStudiesSection({ onOpenTelus }) {
+export default function CaseStudiesSection({ onOpenTelus, onOpenViewer }) {
   const [activeSection, setActiveSection] = useState('featured')
   const [navVisible, setNavVisible] = useState(false)
   const featuredRef = useRef(null)
@@ -330,7 +330,7 @@ export default function CaseStudiesSection({ onOpenTelus }) {
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 pt-32">
         <div id="featured" ref={featuredRef} className="flex flex-col">
           {caseStudies.map((study, i) => (
-            <FeaturedCard key={study.title} study={study} index={i} onClick={study.type === 'chatbot' ? onOpenTelus : undefined} />
+            <FeaturedCard key={study.title} study={study} index={i} onClick={study.type === 'chatbot' ? onOpenTelus : study.type === 'images' ? onOpenViewer : undefined} />
           ))}
         </div>
 

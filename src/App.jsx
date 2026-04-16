@@ -8,6 +8,7 @@ import PlaygroundSection from './components/PlaygroundSection'
 import AboutSection from './components/AboutSection'
 import Footer from './components/Footer'
 import TelusCaseStudy from './components/TelusCaseStudy'
+import ViewerCaseStudy from './components/ViewerCaseStudy'
 import LiquidGlassFilter from './components/LiquidGlassFilter'
 import CustomCursor from './components/CustomCursor'
 import logoImg from './assets/hero.png'
@@ -50,7 +51,7 @@ function HomePage() {
       <FloatingLogo />
       <GlassNavBar />
       <HeroSection />
-      <CaseStudiesSection onOpenTelus={() => navigate('/case-study/telus')} />
+      <CaseStudiesSection onOpenTelus={() => navigate('/case-study/telus')} onOpenViewer={() => navigate('/case-study/viewer')} />
       <PlaygroundSection />
       <AboutSection />
       <Footer />
@@ -64,6 +65,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/case-study/telus" element={<><CustomCursor /><TelusCaseStudy /></>} />
+        <Route path="/case-study/viewer" element={<><CustomCursor /><ViewerCaseStudy /></>} />
       </Routes>
     </BrowserRouter>
   )
