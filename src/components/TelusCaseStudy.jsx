@@ -2,20 +2,13 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 function BotAvatar({ size = 80 }) {
-  const r = size * 0.075
   return (
-    <div className="relative" style={{
-      width: size, height: size, background: '#4b286d',
-      borderRadius: `${size * 0.075}px ${size * 0.075}px ${size * 0.075}px ${size * 0.02}px`,
-    }}>
-      <div className="absolute bg-white" style={{ left: '25%', right: '61.36%', top: '27.27%', bottom: '59.09%', borderRadius: `${r}px` }} />
-      <div className="absolute bg-white" style={{ left: '61.36%', right: '25%', top: '27.27%', bottom: '59.09%', borderRadius: `${r}px` }} />
-      <div className="absolute" style={{ left: '24%', right: '24%', top: '63%', bottom: '27%' }}>
-        <svg width="100%" height="100%" viewBox="0 0 42 6" fill="none" preserveAspectRatio="none">
-          <path d="M1 1L4.3 2.18C15.38 6.11 27.48 6.03 38.49 1.93L41 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </div>
-    </div>
+    <svg width={size} height={size} viewBox="0 0 40 40" fill="none">
+      <path d="M6 0h28a6 6 0 0 1 6 6v34H6a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6z" fill="#4b286d" />
+      <circle cx="14" cy="16" r="2.5" fill="white" />
+      <circle cx="26" cy="16" r="2.5" fill="white" />
+      <path d="M13 24c3 4 11 4 14 0" stroke="white" strokeWidth="2" strokeLinecap="round" fill="none" />
+    </svg>
   )
 }
 
@@ -297,16 +290,21 @@ export default function TelusCaseStudy() {
             <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">How I Solved It</h2>
             <div className="space-y-8">
               {[
-                { num: '01', title: 'Card Sorting Workshop', desc: 'Organized a cross-functional workshop with team members and a live agent to categorize and prioritize chatbot features, eliminating unnecessary options.' },
+                { num: '01', title: 'Card Sorting Workshop', desc: 'Organized a cross-functional workshop with team members and a live agent to categorize and prioritize chatbot features, eliminating unnecessary options.', image: '/telus-cardsorting.avif' },
                 { num: '02', title: 'Service Design Thinking', desc: 'Mapped end-to-end customer experiences across chatbot-to-agent-to-resolution touchpoints for seamless handoffs.' },
                 { num: '03', title: 'Conversation Design', desc: 'Applied human-centered communication strategies emphasizing natural, helpful, and context-aware interactions.' },
                 { num: '04', title: 'Design Iterations', desc: 'Streamlined user flows, redesigned quick-reply buttons, created error states, introduced carousel-based catalogues, and developed post-interaction surveys.' },
               ].map(step => (
                 <div key={step.num} className="flex gap-6">
                   <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#4b286d] text-white text-[13px] font-bold flex items-center justify-center">{step.num}</div>
-                  <div className="pt-1">
+                  <div className="pt-1 flex-1">
                     <p className="text-[16px] font-semibold text-gray-800 mb-2">{step.title}</p>
                     <p className="text-[14px] text-gray-500 leading-relaxed">{step.desc}</p>
+                    {step.image && (
+                      <div className="mt-4 rounded-xl overflow-hidden shadow-sm border border-gray-100">
+                        <img src={step.image} alt={step.title} className="w-full object-cover" />
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
@@ -408,15 +406,15 @@ export default function TelusCaseStudy() {
             {/* Before & After — Existing Customer Auth */}
             <div className="mb-10">
               <p className="text-[13px] font-semibold text-gray-700 mb-4">Existing Customer Experience</p>
-              <div className="flex gap-4 mb-4">
+              <div className="flex gap-4 mb-4 items-stretch" style={{ maxWidth: '800px' }}>
                 {/* Before */}
                 <div className="flex-1 rounded-2xl overflow-hidden border border-red-100 flex flex-col">
                   <div className="bg-red-50 px-3 py-2 flex items-center gap-2 flex-shrink-0">
                     <div className="w-1.5 h-1.5 rounded-full bg-red-400" />
                     <span className="text-[11px] font-semibold text-red-400 uppercase tracking-wider">Before</span>
                   </div>
-                  <div className="overflow-hidden">
-                    <img src="/telus-beforeauth.jpg" alt="Before authentication flow" className="w-full object-contain" />
+                  <div className="flex-1 overflow-hidden">
+                    <img src="/telus-beforeauth.jpg" alt="Before authentication flow" className="w-full h-full object-cover object-top" />
                   </div>
                 </div>
 
@@ -427,49 +425,71 @@ export default function TelusCaseStudy() {
                   </svg>
                 </div>
 
-                {/* After — actual chatbot prototype from homepage */}
-                <div className="flex-1 flex flex-col">
-                  <div className="bg-green-50 px-3 py-2 flex items-center gap-2 rounded-t-2xl border border-green-100 border-b-0 flex-shrink-0">
+                {/* After */}
+                <div className="flex-1 flex flex-col rounded-2xl overflow-hidden border border-green-100">
+                  <div className="bg-green-50 px-3 py-2 flex items-center gap-2 flex-shrink-0">
                     <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
                     <span className="text-[11px] font-semibold text-green-600 uppercase tracking-wider">After</span>
                   </div>
-                  <div className="flex-1 bg-white rounded-b-2xl border border-green-100 border-t-0 overflow-hidden">
-                    {/* Static chatbot mockup matching the screenshot */}
-                    <div className="flex flex-col h-full" style={{ fontFamily: 'system-ui, sans-serif' }}>
+                  <div className="flex-1 bg-white overflow-hidden flex flex-col">
+                    <div className="flex flex-col flex-1" style={{ fontFamily: 'Helvetica, system-ui, sans-serif' }}>
                       {/* Purple header */}
-                      <div className="bg-[#4b286d] flex items-center justify-between px-3 py-2">
-                        <BotAvatar size={28} />
+                      <div className="bg-[#4b286d] flex items-center gap-2 px-3 py-2.5 rounded-t-[6px]">
+                        <svg width="24" height="24" viewBox="0 0 40 40" fill="none">
+                          <circle cx="14" cy="16" r="2.5" fill="white" />
+                          <circle cx="26" cy="16" r="2.5" fill="white" />
+                          <path d="M13 24c3 4 11 4 14 0" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                        </svg>
+                        <span className="text-white text-[13px] font-semibold">TELUS Assist</span>
+                        <div className="flex-1" />
                         <div className="flex gap-1">
-                          <div className="w-6 h-6 rounded-full border border-white/30 flex items-center justify-center"><span className="text-white/60 text-[10px]">—</span></div>
-                          <div className="w-6 h-6 rounded-full border border-white/30 flex items-center justify-center"><span className="text-white/60 text-[10px]">×</span></div>
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" opacity="0.6"><path d="M5 12h14"/></svg>
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" opacity="0.6"><path d="M18 6L6 18M6 6l12 12"/></svg>
                         </div>
                       </div>
-                      {/* Body */}
-                      <div className="flex-1 bg-white px-4 py-5 flex flex-col items-center">
-                        <BotAvatar size={56} />
-                        <p className="text-[13px] font-bold text-[#2c2e30] mt-2">Connected with TELUS Assist</p>
-                        <p className="text-[10px] text-gray-400 mb-5">Tuesday, 20 July, 10:00</p>
-                        {/* Bot messages */}
-                        <div className="w-full space-y-2 mb-4">
-                          <div className="bg-[#f2eff4] rounded-xl px-3 py-2 max-w-[85%]">
-                            <p className="text-[11px] text-[#2a2c2e]">👋 Hi Joe, I'm TELUS Assist for TV Bundles & Deals.</p>
-                          </div>
-                          <div className="bg-[#f2eff4] rounded-xl px-3 py-2 max-w-[85%]">
-                            <p className="text-[11px] text-[#2a2c2e]">To get started, select one of the options below.</p>
-                          </div>
+
+                      {/* Intro */}
+                      <div className="flex flex-col items-center pt-8 pb-6 bg-white">
+                        <div className="w-[80px] h-[80px] bg-[#4b286d] rounded-tl-[8px] rounded-tr-[8px] rounded-bl-[8px] flex items-center justify-center mb-3">
+                          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="16" cy="18" r="3" fill="white" />
+                            <circle cx="32" cy="18" r="3" fill="white" />
+                            <path d="M14 30c4 5 16 5 20 0" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
+                          </svg>
                         </div>
-                        {/* Quick replies */}
-                        <div className="w-full flex flex-wrap gap-1.5">
-                          {['Add, manage or upgrade', 'TV programming', 'TV bundles', 'I need technical support', 'Bundle Builder', 'Best deals'].map(opt => (
-                            <span key={opt} className="text-[10px] font-medium border-2 border-[#2b8000] text-[#2b8000] rounded-full px-3 py-1.5">{opt}</span>
-                          ))}
+                        <p className="text-[13px] font-bold text-[#2c2e30]">Connected with TELUS Assist</p>
+                        <p className="text-[11px] text-[#2a2c2e]">Tuesday, 20 July, 10:00</p>
+                      </div>
+
+                      {/* Messages */}
+                      <div className="px-4 pb-4 bg-white space-y-3">
+                        <div className="bg-[#f2eff4] rounded-tr-[16px] rounded-br-[16px] rounded-bl-[16px] px-4 py-2.5 max-w-[85%]">
+                          <p className="text-[13px] text-[#2a2c2e]">👋 Hi Joe, I'm TELUS Assist for TV Bundles & Deals.</p>
+                        </div>
+                        <div className="bg-[#f2eff4] rounded-tr-[16px] rounded-br-[16px] rounded-bl-[16px] px-4 py-2.5 max-w-[85%]">
+                          <p className="text-[13px] text-[#2a2c2e]">To get started, select one of the options below.</p>
                         </div>
                       </div>
-                      {/* Input bar */}
-                      <div className="border-t border-gray-200 px-3 py-2 flex items-center gap-2">
-                        <div className="flex-1 border border-gray-300 rounded-full px-3 py-1.5 text-[10px] text-gray-400">Type your message</div>
-                        <div className="w-6 h-6 rounded-full bg-[#4b286d] flex items-center justify-center">
-                          <svg width="8" height="8" viewBox="0 0 24 24" fill="white"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+
+                      {/* Quick reply buttons — layout matching Figma */}
+                      <div className="px-4 pb-6 bg-white flex flex-col items-start gap-2.5 flex-1">
+                        <span className="text-[13px] font-bold border-2 border-[#248700] text-[#248700] rounded-full px-5 py-2 hover:bg-[#e8f5e0] transition-colors cursor-default">Add, manage or upgrade</span>
+                        <div className="flex gap-2.5 justify-center">
+                          <span className="text-[13px] font-bold border-2 border-[#248700] text-[#248700] rounded-full px-5 py-2 hover:bg-[#e8f5e0] transition-colors cursor-default">TV programming</span>
+                          <span className="text-[13px] font-bold border-2 border-[#248700] text-[#248700] rounded-full px-5 py-2 hover:bg-[#e8f5e0] transition-colors cursor-default">TV bundles</span>
+                        </div>
+                        <span className="text-[13px] font-bold border-2 border-[#248700] text-[#248700] rounded-full px-5 py-2 hover:bg-[#e8f5e0] transition-colors cursor-default">I need technical support</span>
+                        <div className="flex gap-2.5 justify-center">
+                          <span className="text-[13px] font-bold border-2 border-[#248700] text-[#248700] rounded-full px-5 py-2 hover:bg-[#e8f5e0] transition-colors cursor-default">Bundle Builder</span>
+                          <span className="text-[13px] font-bold border-2 border-[#248700] text-[#248700] rounded-full px-5 py-2 hover:bg-[#e8f5e0] transition-colors cursor-default">Best deals</span>
+                        </div>
+                      </div>
+
+                      {/* Input */}
+                      <div className="px-4 py-3 bg-white border-t border-gray-200 flex items-center gap-2 shadow-[0_-1px_3px_rgba(0,0,0,0.08)] flex-shrink-0 mt-auto">
+                        <div className="flex-1 border border-[#d8d8d8] rounded-full px-4 py-2 text-[13px] text-[#71757b]">Type your message</div>
+                        <div className="w-[28px] h-[28px] rounded-full bg-[#4b286d] flex items-center justify-center">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
                         </div>
                       </div>
                     </div>
