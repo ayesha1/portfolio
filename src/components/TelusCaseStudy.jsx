@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ChatbotDemo from './ChatbotDemo'
 
 function BotAvatar({ size = 80 }) {
   return (
@@ -12,18 +13,92 @@ function BotAvatar({ size = 80 }) {
   )
 }
 
+function ErrorStatesAnim() {
+  const [active, setActive] = useState(0)
+  const errors = [
+    { image: '/telus-error1.jpg', label: 'Undelivered Message', desc: 'Shows retry option when message fails to send' },
+    { image: '/telus-error2.jpg', label: 'WiFi Disconnected', desc: 'Alerts user of connection issues with reconnect prompt' },
+    { image: '/telus-error3.jpg', label: 'Image Not Loading', desc: 'Placeholder state when media fails to load' },
+  ]
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActive(a => (a + 1) % 3)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <div>
+      <div className="flex gap-3 mb-3">
+        {errors.map((err, i) => (
+          <button
+            key={i}
+            onClick={() => setActive(i)}
+            className="text-[10px] font-medium px-3 py-1.5 rounded-full transition-all duration-300"
+            style={{
+              background: active === i ? '#4b286d' : '#f3f4f6',
+              color: active === i ? 'white' : '#6b7280',
+            }}
+          >
+            {err.label}
+          </button>
+        ))}
+      </div>
+      <div className="relative w-[280px] h-[420px] rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+        {errors.map((err, i) => (
+          <div
+            key={i}
+            className="absolute inset-0 transition-all duration-500"
+            style={{
+              opacity: active === i ? 1 : 0,
+              transform: active === i ? 'translateX(0)' : i > active ? 'translateX(20px)' : 'translateX(-20px)',
+            }}
+          >
+            <img src={err.image} alt={err.label} className="w-full h-full object-cover object-top" />
+          </div>
+        ))}
+      </div>
+      <p className="text-[11px] text-gray-400 mt-2">{errors[active].desc}</p>
+    </div>
+  )
+}
+
+function PrototypeOnScroll() {
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
+      { threshold: 0.3 }
+    )
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={ref} className="mb-8 flex justify-start">
+      <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+        <ChatbotDemo isVisible={visible} />
+      </div>
+    </div>
+  )
+}
+
 function BeforeNewCustomerAnim() {
   const [step, setStep] = useState(0)
 
   useEffect(() => {
     const cycle = () => {
       setStep(0)
-      setTimeout(() => setStep(1), 2500)
-      setTimeout(() => setStep(2), 4000)
-      setTimeout(() => setStep(0), 7500)
+      setTimeout(() => setStep(1), 2000)   // hover
+      setTimeout(() => setStep(2), 3000)   // click (fill)
+      setTimeout(() => setStep(3), 4200)   // products
+      setTimeout(() => setStep(0), 8000)   // reset
     }
     cycle()
-    const loop = setInterval(cycle, 7500)
+    const loop = setInterval(cycle, 8000)
     return () => clearInterval(loop)
   }, [])
 
@@ -31,19 +106,14 @@ function BeforeNewCustomerAnim() {
     <div className="flex flex-col" style={{ fontFamily: 'system-ui, sans-serif', height: '420px' }}>
       {/* Old-style header — white bg with purple icon */}
       <div className="bg-[#4b286d] flex items-center gap-2 px-3 py-2 rounded-t-[6px]">
-        <div className="w-[22px] h-[22px] bg-white rounded-[3px] flex items-center justify-center" style={{ borderRadius: '4px 4px 1px 4px' }}>
-          <svg width="12" height="12" viewBox="0 0 40 40" fill="none">
-            <circle cx="14" cy="16" r="2.5" fill="#4b286d" /><circle cx="26" cy="16" r="2.5" fill="#4b286d" />
-            <path d="M13 24c3 4 11 4 14 0" stroke="#4b286d" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-        </div>
+        <img src="/telus-oldlogo.png" alt="" className="w-[24px] h-[24px] object-contain" />
         <span className="text-white text-[11px] font-semibold">TELUS Assist</span>
         <div className="flex-1" />
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.5"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.5"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
       </div>
 
-      {step < 2 ? (
+      {step < 3 ? (
         <div className="flex-1 flex flex-col overflow-hidden">
           <div className="text-center text-[12px] font-medium text-gray-500 py-2 border-b border-gray-100">Welcome</div>
           <div className="px-4 py-4 flex-1 flex flex-col">
@@ -55,9 +125,10 @@ function BeforeNewCustomerAnim() {
             <button
               className="w-full border-2 rounded-lg py-3 text-[12px] font-medium transition-all duration-300"
               style={{
-                borderColor: step === 1 ? '#4b286d' : '#d1d5db',
-                backgroundColor: step === 1 ? '#4b286d' : 'white',
-                color: step === 1 ? 'white' : '#374151',
+                borderColor: step >= 1 ? '#4b286d' : '#d1d5db',
+                backgroundColor: step === 2 ? '#4b286d' : step === 1 ? '#f3f0f6' : 'white',
+                color: step === 2 ? 'white' : '#374151',
+                transform: step === 2 ? 'scale(0.97)' : 'scale(1)',
               }}
             >
               No
@@ -119,9 +190,9 @@ function AfterNewCustomerAnim() {
             <p className="text-[11px] text-gray-500 leading-relaxed mb-4">
               To start let's get some quick information so we can better serve you.
             </p>
-            <p className="text-[12px] font-bold text-gray-800 mb-4">Are you a TELUS customer?</p>
-            <button className="w-full border border-gray-300 rounded-full py-3 text-[12px] text-gray-700 mb-3">Yes</button>
-            <button className="w-full border-2 border-gray-300 rounded-full py-3 text-[12px] text-gray-700">No</button>
+            <p className="text-[12px] font-bold text-gray-800 mb-5">Are you a TELUS customer?</p>
+            <button className="w-full border-2 border-[#4b286d] rounded-full py-3.5 text-[12px] text-gray-700 mb-3">Yes</button>
+            <button className="w-full border-2 border-[#4b286d] rounded-full py-3.5 text-[12px] text-gray-700">No</button>
           </div>
         </div>
       ) : (
@@ -393,10 +464,20 @@ export default function TelusCaseStudy() {
                 </div>
               ))}
             </div>
-            {/* User research complaint */}
-            <div className="mb-8 rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-              <img src="/telus-complaint.avif" alt="User complaint from research" className="w-full object-cover" />
-              <p className="text-[11px] text-gray-400 px-4 py-2 bg-gray-50">User complaint captured during research</p>
+            {/* User research complaint — styled as research artifact */}
+            <div className="mb-8 flex justify-center">
+              <div className="relative max-w-[400px]">
+                {/* Paper shadow + slight tilt */}
+                <div className="bg-white rounded-lg p-3 shadow-[0_4px_20px_rgba(0,0,0,0.08)] transform rotate-[-1deg]">
+                  {/* Tape strip */}
+                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-16 h-4 bg-yellow-100/80 rounded-sm" style={{ transform: 'rotate(2deg)', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }} />
+                  <img src="/telus-complaint.avif" alt="User complaint from research" className="w-full rounded-md" />
+                </div>
+                <div className="mt-3 flex items-center gap-2 justify-center">
+                  <span className="text-[16px]">📌</span>
+                  <p className="text-[11px] text-gray-400 italic">Real user complaint captured during research</p>
+                </div>
+              </div>
             </div>
 
             <div className="border-l-4 border-[#4b286d] pl-6 py-2">
@@ -543,33 +624,42 @@ export default function TelusCaseStudy() {
           <ContentSection id="solutions">
             <p className="text-[11px] uppercase tracking-[0.2em] text-[#4b286d] font-medium mb-3">Solutions</p>
             <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">Key Design Decisions</h2>
-            <div className="space-y-4 mb-8">
-              {[
-                { title: 'Streamlined quick replies', desc: 'Narrowed options to the most commonly asked questions based on live agent data' },
-                { title: 'In-chat authentication', desc: 'Implemented sign-in/sign-up so users never lose conversation context' },
-              ].map(s => (
-                <div key={s.title} className="flex items-start gap-4 p-4 rounded-xl border border-gray-100">
-                  <div className="w-2 h-2 rounded-full bg-[#2b8000] mt-2 flex-shrink-0" />
-                  <div>
-                    <p className="text-[14px] font-semibold text-gray-800">{s.title}</p>
-                    <p className="text-[13px] text-gray-400 mt-0.5">{s.desc}</p>
-                  </div>
-                </div>
-              ))}
+            {/* Streamlined quick replies */}
+            <div className="flex items-start gap-4 p-4 rounded-xl border border-gray-100 mb-4">
+              <div className="w-2 h-2 rounded-full bg-[#2b8000] mt-2 flex-shrink-0" />
+              <div>
+                <p className="text-[14px] font-semibold text-gray-800">Streamlined quick replies</p>
+                <p className="text-[13px] text-gray-400 mt-0.5">Narrowed options to the most commonly asked questions based on live agent data</p>
+              </div>
+            </div>
+
+            {/* Interactive prototype */}
+            <div className="ml-8">
+              <PrototypeOnScroll />
+            </div>
+
+
+            {/* In-chat authentication */}
+            <div className="flex items-start gap-4 p-4 rounded-xl border border-gray-100 mb-8">
+              <div className="w-2 h-2 rounded-full bg-[#2b8000] mt-2 flex-shrink-0" />
+              <div>
+                <p className="text-[14px] font-semibold text-gray-800">In-chat authentication</p>
+                <p className="text-[13px] text-gray-400 mt-0.5">Implemented sign-in/sign-up so users never lose conversation context</p>
+              </div>
             </div>
 
             {/* Before & After — under In-chat authentication */}
-            <div className="mb-10">
+            <div className="mb-10 ml-8">
               <p className="text-[13px] font-semibold text-gray-700 mb-4">Existing Customer Experience</p>
-              <div className="flex gap-4 mb-4 items-stretch" style={{ maxWidth: '800px' }}>
+              <div className="flex gap-4 mb-4 items-start">
                 {/* Before */}
-                <div className="flex-1 rounded-2xl overflow-hidden border border-red-100 flex flex-col">
+                <div className="w-[280px] flex-shrink-0 rounded-2xl overflow-hidden border border-red-100 flex flex-col">
                   <div className="bg-red-50 px-3 py-2 flex items-center gap-2 flex-shrink-0">
                     <div className="w-1.5 h-1.5 rounded-full bg-red-400" />
                     <span className="text-[11px] font-semibold text-red-400 uppercase tracking-wider">Before</span>
                   </div>
-                  <div className="flex-1 overflow-hidden">
-                    <img src="/telus-beforeauth.jpg" alt="Before authentication flow" className="w-full h-full object-cover object-top" />
+                  <div className="overflow-hidden">
+                    <img src="/telus-beforeauth.jpg" alt="Before authentication flow" className="w-full object-contain" />
                   </div>
                 </div>
 
@@ -581,7 +671,7 @@ export default function TelusCaseStudy() {
                 </div>
 
                 {/* After */}
-                <div className="flex-1 flex flex-col rounded-2xl overflow-hidden border border-green-100">
+                <div className="w-[280px] flex-shrink-0 flex flex-col rounded-2xl overflow-hidden border border-green-100">
                   <div className="bg-green-50 px-3 py-2 flex items-center gap-2 flex-shrink-0">
                     <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
                     <span className="text-[11px] font-semibold text-green-600 uppercase tracking-wider">After</span>
@@ -626,18 +716,11 @@ export default function TelusCaseStudy() {
                         </div>
                       </div>
 
-                      {/* Quick reply buttons — layout matching Figma */}
-                      <div className="px-4 pb-6 bg-white flex flex-col items-start gap-2.5 flex-1">
-                        <span className="text-[13px] font-bold border-2 border-[#248700] text-[#248700] rounded-full px-5 py-2 hover:bg-[#e8f5e0] transition-colors cursor-default">Add, manage or upgrade</span>
-                        <div className="flex gap-2.5 justify-center">
-                          <span className="text-[13px] font-bold border-2 border-[#248700] text-[#248700] rounded-full px-5 py-2 hover:bg-[#e8f5e0] transition-colors cursor-default">TV programming</span>
-                          <span className="text-[13px] font-bold border-2 border-[#248700] text-[#248700] rounded-full px-5 py-2 hover:bg-[#e8f5e0] transition-colors cursor-default">TV bundles</span>
-                        </div>
-                        <span className="text-[13px] font-bold border-2 border-[#248700] text-[#248700] rounded-full px-5 py-2 hover:bg-[#e8f5e0] transition-colors cursor-default">I need technical support</span>
-                        <div className="flex gap-2.5 justify-center">
-                          <span className="text-[13px] font-bold border-2 border-[#248700] text-[#248700] rounded-full px-5 py-2 hover:bg-[#e8f5e0] transition-colors cursor-default">Bundle Builder</span>
-                          <span className="text-[13px] font-bold border-2 border-[#248700] text-[#248700] rounded-full px-5 py-2 hover:bg-[#e8f5e0] transition-colors cursor-default">Best deals</span>
-                        </div>
+                      {/* Quick reply buttons */}
+                      <div className="px-3 pb-4 bg-white flex flex-wrap gap-1.5 flex-1">
+                        {['Add, manage or upgrade', 'TV programming', 'TV bundles', 'I need technical support', 'Bundle Builder', 'Best deals'].map(opt => (
+                          <span key={opt} className="text-[10px] font-bold border-[1.5px] border-[#248700] text-[#248700] rounded-full px-3 py-1.5 hover:bg-[#e8f5e0] transition-colors cursor-default">{opt}</span>
+                        ))}
                       </div>
 
                       {/* Input */}
@@ -662,7 +745,7 @@ export default function TelusCaseStudy() {
             </div>
 
             {/* Before & After — New Customer (animated) */}
-            <div className="mb-10">
+            <div className="mb-10 ml-8">
               <p className="text-[13px] font-semibold text-gray-700 mb-4">New Customer Experience</p>
               <div className="flex gap-4 mb-4 items-stretch" style={{ maxWidth: '800px' }}>
                 {/* Before — animated */}
@@ -704,10 +787,32 @@ export default function TelusCaseStudy() {
               </div>
             </div>
 
+            {/* Consistent patterns */}
+            <div className="flex items-start gap-4 p-4 rounded-xl border border-gray-100 mb-4">
+              <div className="w-2 h-2 rounded-full bg-[#2b8000] mt-2 flex-shrink-0" />
+              <div>
+                <p className="text-[14px] font-semibold text-gray-800">Consistent patterns</p>
+                <p className="text-[13px] text-gray-400 mt-0.5">Established button and interaction patterns across the entire platform</p>
+              </div>
+            </div>
+
+            {/* Error state system */}
+            <div className="flex items-start gap-4 p-4 rounded-xl border border-gray-100 mb-4">
+              <div className="w-2 h-2 rounded-full bg-[#2b8000] mt-2 flex-shrink-0" />
+              <div>
+                <p className="text-[14px] font-semibold text-gray-800">Error state system</p>
+                <p className="text-[13px] text-gray-400 mt-0.5">Created definitions for the design system to handle edge cases gracefully</p>
+              </div>
+            </div>
+
+            {/* Error states animation */}
+            <div className="ml-8 mb-8">
+              <ErrorStatesAnim />
+            </div>
+
+            {/* Remaining solutions */}
             <div className="space-y-4">
               {[
-                { title: 'Consistent patterns', desc: 'Established button and interaction patterns across the entire platform' },
-                { title: 'Error state system', desc: 'Created definitions for the design system to handle edge cases gracefully' },
                 { title: 'Carousel catalogues', desc: 'Redesigned product browsing from scrollable lists to swipeable carousels' },
                 { title: 'Smart surveys', desc: 'Star-rating surveys with conditional follow-up questions for better feedback' },
               ].map(s => (

@@ -63,7 +63,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/case-study/telus" element={<TelusCaseStudy />} />
+        <Route path="/case-study/telus" element={<><CustomCursor /><TelusCaseStudy /></>} />
       </Routes>
     </BrowserRouter>
   )
