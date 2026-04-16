@@ -402,8 +402,22 @@ export default function TelusCaseStudy() {
           <ContentSection id="solutions">
             <p className="text-[11px] uppercase tracking-[0.2em] text-[#4b286d] font-medium mb-3">Solutions</p>
             <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">Key Design Decisions</h2>
+            <div className="space-y-4 mb-8">
+              {[
+                { title: 'Streamlined quick replies', desc: 'Narrowed options to the most commonly asked questions based on live agent data' },
+                { title: 'In-chat authentication', desc: 'Implemented sign-in/sign-up so users never lose conversation context' },
+              ].map(s => (
+                <div key={s.title} className="flex items-start gap-4 p-4 rounded-xl border border-gray-100">
+                  <div className="w-2 h-2 rounded-full bg-[#2b8000] mt-2 flex-shrink-0" />
+                  <div>
+                    <p className="text-[14px] font-semibold text-gray-800">{s.title}</p>
+                    <p className="text-[13px] text-gray-400 mt-0.5">{s.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
 
-            {/* Before & After — Existing Customer Auth */}
+            {/* Before & After — under In-chat authentication */}
             <div className="mb-10">
               <p className="text-[13px] font-semibold text-gray-700 mb-4">Existing Customer Experience</p>
               <div className="flex gap-4 mb-4 items-stretch" style={{ maxWidth: '800px' }}>
@@ -451,10 +465,10 @@ export default function TelusCaseStudy() {
                       {/* Intro */}
                       <div className="flex flex-col items-center pt-8 pb-6 bg-white">
                         <div className="w-[80px] h-[80px] bg-[#4b286d] rounded-tl-[8px] rounded-tr-[8px] rounded-bl-[8px] flex items-center justify-center mb-3">
-                          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                            <circle cx="16" cy="18" r="3" fill="white" />
-                            <circle cx="32" cy="18" r="3" fill="white" />
-                            <path d="M14 30c4 5 16 5 20 0" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
+                          <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                            <circle cx="21" cy="24" r="4" fill="white" />
+                            <circle cx="43" cy="24" r="4" fill="white" />
+                            <path d="M17 43c6 7 24 7 30 0" stroke="white" strokeWidth="3" strokeLinecap="round" />
                           </svg>
                         </div>
                         <p className="text-[13px] font-bold text-[#2c2e30]">Connected with TELUS Assist</p>
@@ -507,8 +521,6 @@ export default function TelusCaseStudy() {
             </div>
             <div className="space-y-4">
               {[
-                { title: 'Streamlined quick replies', desc: 'Narrowed options to the most commonly asked questions based on live agent data' },
-                { title: 'In-chat authentication', desc: 'Implemented sign-in/sign-up so users never lose conversation context' },
                 { title: 'Consistent patterns', desc: 'Established button and interaction patterns across the entire platform' },
                 { title: 'Error state system', desc: 'Created definitions for the design system to handle edge cases gracefully' },
                 { title: 'Carousel catalogues', desc: 'Redesigned product browsing from scrollable lists to swipeable carousels' },

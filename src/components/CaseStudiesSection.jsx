@@ -85,7 +85,7 @@ function FeaturedCard({ study, index, onClick }) {
         transitionDelay: `${index * 100}ms`,
       }}
     >
-      <div data-card data-card-type={study.type} className="group overflow-visible transition-all duration-300 hover:-translate-y-1">
+      <div data-card data-card-type={study.type} className="group overflow-visible transition-all duration-300 hover:-translate-y-1" onClick={onClick} style={{ cursor: onClick ? 'pointer' : undefined }}>
         <div className={`flex flex-col ${study.reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} lg:min-h-[720px]`}>
           {/* Text content */}
           <div className={`flex-1 min-w-0 flex flex-col justify-center ${study.reverse ? 'p-10 lg:py-12 lg:pl-6 lg:pr-10' : 'p-10 lg:p-14'}`}>
