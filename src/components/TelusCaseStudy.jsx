@@ -12,6 +12,147 @@ function BotAvatar({ size = 80 }) {
   )
 }
 
+function BeforeNewCustomerAnim() {
+  const [step, setStep] = useState(0)
+
+  useEffect(() => {
+    const cycle = () => {
+      setStep(0)
+      setTimeout(() => setStep(1), 2500)
+      setTimeout(() => setStep(2), 4000)
+      setTimeout(() => setStep(0), 7500)
+    }
+    cycle()
+    const loop = setInterval(cycle, 7500)
+    return () => clearInterval(loop)
+  }, [])
+
+  return (
+    <div className="flex flex-col" style={{ fontFamily: 'system-ui, sans-serif', height: '420px' }}>
+      {/* Old-style header — white bg with purple icon */}
+      <div className="bg-[#4b286d] flex items-center gap-2 px-3 py-2 rounded-t-[6px]">
+        <div className="w-[22px] h-[22px] bg-white rounded-[3px] flex items-center justify-center" style={{ borderRadius: '4px 4px 1px 4px' }}>
+          <svg width="12" height="12" viewBox="0 0 40 40" fill="none">
+            <circle cx="14" cy="16" r="2.5" fill="#4b286d" /><circle cx="26" cy="16" r="2.5" fill="#4b286d" />
+            <path d="M13 24c3 4 11 4 14 0" stroke="#4b286d" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        </div>
+        <span className="text-white text-[11px] font-semibold">TELUS Assist</span>
+        <div className="flex-1" />
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.5"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.5"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+      </div>
+
+      {step < 2 ? (
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <div className="text-center text-[12px] font-medium text-gray-500 py-2 border-b border-gray-100">Welcome</div>
+          <div className="px-4 py-4 flex-1 flex flex-col">
+            <p className="text-[11px] text-gray-500 leading-relaxed mb-4">
+              A quick and easy way to find information and manage your account, 24/7. If our virtual assistant can't help, it will connect you to a live agent.
+            </p>
+            <p className="text-[12px] font-bold text-gray-800 mb-4">Are you currently a TELUS business customer?</p>
+            <button className="w-full border border-gray-300 rounded-lg py-3 text-[12px] text-gray-700 mb-3">Yes</button>
+            <button
+              className="w-full border-2 rounded-lg py-3 text-[12px] font-medium transition-all duration-300"
+              style={{
+                borderColor: step === 1 ? '#4b286d' : '#d1d5db',
+                backgroundColor: step === 1 ? '#4b286d' : 'white',
+                color: step === 1 ? 'white' : '#374151',
+              }}
+            >
+              No
+            </button>
+            <p className="text-[8px] text-gray-400 mt-3 leading-relaxed">This Chat session will be recorded in accordance with the TELUS Privacy Commitment.</p>
+          </div>
+        </div>
+      ) : (
+        <div className="flex-1 flex flex-col overflow-hidden" style={{ animation: 'fadeSlideIn 0.4s ease-out' }}>
+          <div className="flex items-center gap-2 px-3 py-2 border-b border-gray-100">
+            <span className="text-[#4b286d] text-[16px] font-light">‹</span>
+            <span className="text-[12px] font-medium text-gray-500">Select a product</span>
+          </div>
+          <div className="px-4 py-1 overflow-auto">
+            {['Business mobility services', 'Business phone or Internet Services', 'Business Connect (Cloud Based Voice over IP)', 'Business Bundles', 'TELUS Secure Business', 'TELUS Business Apps - Office 365 & G Suite'].map(opt => (
+              <div key={opt} className="flex items-center gap-3 py-2.5 border-b border-gray-50">
+                <div className="w-[14px] h-[14px] rounded-full border-[1.5px] border-gray-300 flex-shrink-0" />
+                <span className="text-[10px] text-gray-600 leading-tight">{opt}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function AfterNewCustomerAnim() {
+  const [step, setStep] = useState(0)
+
+  useEffect(() => {
+    const cycle = () => {
+      setStep(0)
+      setTimeout(() => setStep(1), 2500)
+      setTimeout(() => setStep(0), 7500)
+    }
+    cycle()
+    const loop = setInterval(cycle, 7500)
+    return () => clearInterval(loop)
+  }, [])
+
+  return (
+    <div className="flex flex-col" style={{ fontFamily: 'system-ui, sans-serif', height: '420px' }}>
+      {/* New header — matching the after mockup style */}
+      <div className="bg-[#4b286d] flex items-center gap-2 px-3 py-2 rounded-t-[6px]">
+        <svg width="18" height="18" viewBox="0 0 40 40" fill="none">
+          <circle cx="14" cy="16" r="2.5" fill="white" /><circle cx="26" cy="16" r="2.5" fill="white" />
+          <path d="M13 24c3 4 11 4 14 0" stroke="white" strokeWidth="2" strokeLinecap="round" />
+        </svg>
+        <span className="text-white text-[11px] font-semibold">TELUS Assist</span>
+        <div className="flex-1" />
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" opacity="0.6"><path d="M5 12h14"/></svg>
+      </div>
+
+      {step === 0 ? (
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <div className="text-center text-[12px] font-medium text-gray-600 py-2 border-b border-gray-100">Welcome 👋</div>
+          <div className="px-4 py-4 flex-1 flex flex-col">
+            <p className="text-[11px] text-gray-500 leading-relaxed mb-4">
+              To start let's get some quick information so we can better serve you.
+            </p>
+            <p className="text-[12px] font-bold text-gray-800 mb-4">Are you a TELUS customer?</p>
+            <button className="w-full border border-gray-300 rounded-full py-3 text-[12px] text-gray-700 mb-3">Yes</button>
+            <button className="w-full border-2 border-gray-300 rounded-full py-3 text-[12px] text-gray-700">No</button>
+          </div>
+        </div>
+      ) : (
+        <div className="flex-1 flex flex-col overflow-hidden" style={{ animation: 'fadeSlideIn 0.4s ease-out' }}>
+          <div className="flex items-center gap-2 px-3 py-2 border-b border-gray-100">
+            <span className="text-[#4b286d] text-[16px] font-light">‹</span>
+            <span className="text-[12px] font-medium text-gray-600">Welcome! 👋</span>
+          </div>
+          <div className="px-4 py-4 flex-1 flex flex-col">
+            <p className="text-[12px] font-semibold text-gray-700 mb-4">What can we help you with?</p>
+            <div className="flex flex-col gap-3">
+              <button className="border-2 border-[#4b286d] rounded-full py-3 px-4 text-center">
+                <p className="text-[12px] font-bold text-gray-800">Mobility</p>
+                <p className="text-[10px] text-gray-400">Phones/ Plans/ Deals</p>
+              </button>
+              <button className="border-2 border-[#4b286d] rounded-full py-3 px-4 text-center">
+                <p className="text-[12px] font-bold text-gray-800">Home</p>
+                <p className="text-[10px] text-gray-400">SmartPhone/Online Security</p>
+              </button>
+              <button className="border-2 border-[#4b286d] rounded-full py-3 px-4 text-center">
+                <p className="text-[12px] font-bold text-gray-800">Business</p>
+                <p className="text-[10px] text-gray-400">Business Phones/ Internet/ Bundles</p>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 function FlowNode({ color, text, small, border }) {
   return (
     <div
@@ -519,6 +660,50 @@ export default function TelusCaseStudy() {
                 </div>
               </div>
             </div>
+
+            {/* Before & After — New Customer (animated) */}
+            <div className="mb-10">
+              <p className="text-[13px] font-semibold text-gray-700 mb-4">New Customer Experience</p>
+              <div className="flex gap-4 mb-4 items-stretch" style={{ maxWidth: '800px' }}>
+                {/* Before — animated */}
+                <div className="flex-1 rounded-2xl overflow-hidden border border-red-100 flex flex-col">
+                  <div className="bg-red-50 px-3 py-2 flex items-center gap-2 flex-shrink-0">
+                    <div className="w-1.5 h-1.5 rounded-full bg-red-400" />
+                    <span className="text-[11px] font-semibold text-red-400 uppercase tracking-wider">Before</span>
+                  </div>
+                  <div className="flex-1 bg-white overflow-hidden">
+                    <BeforeNewCustomerAnim />
+                  </div>
+                </div>
+
+                {/* Arrow */}
+                <div className="flex items-center flex-shrink-0">
+                  <svg width="32" height="24" viewBox="0 0 32 24" fill="none">
+                    <path d="M2 12h24M20 6l6 6-6 6" stroke="#4b286d" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+
+                {/* After — animated */}
+                <div className="flex-1 rounded-2xl overflow-hidden border border-green-100 flex flex-col">
+                  <div className="bg-green-50 px-3 py-2 flex items-center gap-2 flex-shrink-0">
+                    <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                    <span className="text-[11px] font-semibold text-green-600 uppercase tracking-wider">After</span>
+                  </div>
+                  <div className="flex-1 bg-white overflow-hidden">
+                    <AfterNewCustomerAnim />
+                  </div>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-50 text-[11px] text-green-700">
+                  <span>✓</span> Simplified onboarding
+                </div>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-50 text-[11px] text-green-700">
+                  <span>✓</span> Reduced options from 6 to 3
+                </div>
+              </div>
+            </div>
+
             <div className="space-y-4">
               {[
                 { title: 'Consistent patterns', desc: 'Established button and interaction patterns across the entire platform' },
@@ -582,6 +767,10 @@ export default function TelusCaseStudy() {
         @keyframes heroFade {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeSlideIn {
+          from { opacity: 0; transform: translateX(10px); }
+          to { opacity: 1; transform: translateX(0); }
         }
       `}</style>
     </div>
