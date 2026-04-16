@@ -14,52 +14,23 @@ function BotAvatar({ size = 80 }) {
 }
 
 function ErrorStatesAnim() {
-  const [active, setActive] = useState(0)
   const errors = [
     { image: '/telus-error1.jpg', label: 'Undelivered Message', desc: 'Shows retry option when message fails to send' },
     { image: '/telus-error2.jpg', label: 'WiFi Disconnected', desc: 'Alerts user of connection issues with reconnect prompt' },
     { image: '/telus-error3.jpg', label: 'Image Not Loading', desc: 'Placeholder state when media fails to load' },
   ]
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActive(a => (a + 1) % 3)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [])
-
   return (
-    <div>
-      <div className="flex gap-3 mb-3">
-        {errors.map((err, i) => (
-          <button
-            key={i}
-            onClick={() => setActive(i)}
-            className="text-[10px] font-medium px-3 py-1.5 rounded-full transition-all duration-300"
-            style={{
-              background: active === i ? '#4b286d' : '#f3f4f6',
-              color: active === i ? 'white' : '#6b7280',
-            }}
-          >
-            {err.label}
-          </button>
-        ))}
-      </div>
-      <div className="relative w-[280px] h-[420px] rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
-        {errors.map((err, i) => (
-          <div
-            key={i}
-            className="absolute inset-0 transition-all duration-500"
-            style={{
-              opacity: active === i ? 1 : 0,
-              transform: active === i ? 'translateX(0)' : i > active ? 'translateX(20px)' : 'translateX(-20px)',
-            }}
-          >
-            <img src={err.image} alt={err.label} className="w-full h-full object-cover object-top" />
+    <div className="flex gap-4">
+      {errors.map((err, i) => (
+        <div key={i} className="flex-1">
+          <div className="rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+            <img src={err.image} alt={err.label} className="w-full object-cover object-top" />
           </div>
-        ))}
-      </div>
-      <p className="text-[11px] text-gray-400 mt-2">{errors[active].desc}</p>
+          <p className="text-[12px] font-semibold text-gray-700 mt-2">{err.label}</p>
+          <p className="text-[11px] text-gray-400">{err.desc}</p>
+        </div>
+      ))}
     </div>
   )
 }
