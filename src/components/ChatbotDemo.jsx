@@ -125,13 +125,6 @@ function QuickReplyButtons({ options, onSelect, showTapHint }) {
           >
             {opt}
           </button>
-          {/* Tap hint — pulsing ring ripple */}
-          {i === 0 && hintVisible && (
-            <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute inset-[-4px] rounded-full border-2 border-gray-400/40" style={{ animation: 'hintRing 2s ease-out infinite' }} />
-              <div className="absolute inset-[-4px] rounded-full border-2 border-gray-400/40" style={{ animation: 'hintRing 2s ease-out 0.6s infinite' }} />
-            </div>
-          )}
         </div>
       ))}
     </div>

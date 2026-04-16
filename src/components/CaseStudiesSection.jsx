@@ -62,7 +62,7 @@ const caseStudies = [
   },
 ]
 
-function FeaturedCard({ study, index }) {
+function FeaturedCard({ study, index, onClick }) {
   const ref = useRef(null)
   const [visible, setVisible] = useState(false)
 
@@ -114,7 +114,7 @@ function FeaturedCard({ study, index }) {
                   </span>
                 ))}
               </div>
-              <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-pink-50 transition-colors cursor-pointer">
+              <div onClick={onClick} className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-pink-50 transition-colors cursor-pointer">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400 group-hover:text-pink-500 transition-colors">
                   <path d="M5 12h14" />
                   <path d="M12 5l7 7-7 7" />
@@ -289,7 +289,7 @@ function SideNav({ activeSection, visible }) {
   )
 }
 
-export default function CaseStudiesSection() {
+export default function CaseStudiesSection({ onOpenTelus }) {
   const [activeSection, setActiveSection] = useState('featured')
   const [navVisible, setNavVisible] = useState(false)
   const featuredRef = useRef(null)
@@ -330,7 +330,7 @@ export default function CaseStudiesSection() {
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 pt-32">
         <div id="featured" ref={featuredRef} className="flex flex-col">
           {caseStudies.map((study, i) => (
-            <FeaturedCard key={study.title} study={study} index={i} />
+            <FeaturedCard key={study.title} study={study} index={i} onClick={study.type === 'chatbot' ? onOpenTelus : undefined} />
           ))}
         </div>
 

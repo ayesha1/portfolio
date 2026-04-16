@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import Layout from './components/Layout'
 import GlassNavBar from './components/GlassNavBar'
 import HeroSection from './components/HeroSection'
@@ -6,6 +7,7 @@ import CaseStudiesSection from './components/CaseStudiesSection'
 import PlaygroundSection from './components/PlaygroundSection'
 import AboutSection from './components/AboutSection'
 import Footer from './components/Footer'
+import TelusCaseStudy from './components/TelusCaseStudy'
 import LiquidGlassFilter from './components/LiquidGlassFilter'
 import CustomCursor from './components/CustomCursor'
 import logoImg from './assets/hero.png'
@@ -38,7 +40,9 @@ function FloatingLogo() {
   )
 }
 
-export default function App() {
+function HomePage() {
+  const navigate = useNavigate()
+
   return (
     <Layout>
       <LiquidGlassFilter />
@@ -46,10 +50,21 @@ export default function App() {
       <FloatingLogo />
       <GlassNavBar />
       <HeroSection />
-      <CaseStudiesSection />
+      <CaseStudiesSection onOpenTelus={() => navigate('/case-study/telus')} />
       <PlaygroundSection />
       <AboutSection />
       <Footer />
     </Layout>
+  )
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/case-study/telus" element={<TelusCaseStudy />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
