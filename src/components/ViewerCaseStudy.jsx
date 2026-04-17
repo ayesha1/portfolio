@@ -164,13 +164,13 @@ export default function ViewerCaseStudy() {
             </p>
             <div className="flex flex-col gap-5">
               {[
-                { title: 'Editor', desc: 'Web-based 3D creation tool', image: '/viewer-editor.gif', pos: 'center' },
+                { title: 'Editor', desc: 'Web-based 3D creation tool', image: '/viewer-editor.gif', pos: 'top', offsetY: '-10px' },
                 { title: 'Dashboard', desc: 'Analytics & management', image: '/viewer-dashboard.png', pos: 'top' },
-                { title: 'Viewer', desc: 'Immersive player experience', image: '/viewer-viewer.gif', pos: 'center' },
+                { title: 'Viewer', desc: 'Immersive player experience', image: '/viewer-viewer.gif', pos: 'top' },
               ].map(item => (
                 <div key={item.title} className="rounded-2xl overflow-hidden border border-gray-100">
-                  <div className="h-[450px] overflow-hidden">
-                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" style={{ objectPosition: item.pos }} />
+                  <div className={`h-[450px] overflow-hidden ${item.pad ? 'px-4 py-2 bg-black' : ''}`}>
+                    <img src={item.image} alt={item.title} className={`w-full h-full ${item.contain ? 'object-contain' : 'object-cover'}`} style={{ objectPosition: item.pos, marginTop: item.offsetY || 0 }} />
                   </div>
                   <div className="p-4">
                     <p className="text-[14px] font-semibold text-gray-800">{item.title}</p>
