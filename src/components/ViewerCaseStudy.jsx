@@ -127,7 +127,7 @@ export default function ViewerCaseStudy() {
 
       {/* ── CONTENT ── */}
       <div className="max-w-[1200px] mx-auto px-8 lg:px-16 flex gap-16 py-20">
-        {/* Left — sticky TOC */}
+        {/* Left – sticky TOC */}
         <div className="hidden lg:block w-[200px] flex-shrink-0">
           <div className="sticky top-24">
             <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-medium mb-6">Contents</p>
@@ -150,17 +150,28 @@ export default function ViewerCaseStudy() {
           </div>
         </div>
 
-        {/* Right — scrolling content */}
+        {/* Right – scrolling content */}
         <div className="flex-1 max-w-[700px]">
 
           <ContentSection id="background">
             <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-medium mb-3">Background</p>
             <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">The Platform</h2>
-            <p className="text-[15px] text-gray-500 leading-relaxed mb-4">
-              Napster is an AI-powered technology and entertainment company specializing in immersive 3D experiences. Following its acquisition by Infinite Reality for $207 million, the company transitioned to developing interactive 3D digital environments.
-            </p>
+
+            {/* Company background gif */}
+            <div className="mb-6 rounded-2xl overflow-hidden h-[260px]">
+              <img src="/viewer-bg.gif" alt="Napster" className="w-full h-full object-cover" />
+            </div>
+
+            {/* Napster description card */}
+            <div className="mb-8 p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100/50 border border-gray-100">
+              <p className="text-[11px] uppercase tracking-[0.15em] text-gray-400 font-semibold mb-2">About Napster</p>
+              <p className="text-[14px] text-gray-600 leading-relaxed">
+                Napster, an AI-powered technology and entertainment company, shifted from music streaming to 3D immersive experiences after its <strong className="text-gray-800">$207M acquisition by Infinite Reality</strong> in March 2025.
+              </p>
+            </div>
+
             <p className="text-[15px] text-gray-500 leading-relaxed mb-8">
-              The Viewer platform functions within a three-component ecosystem — the Editor for creating environments, the Dashboard for analytics, and the Viewer for immersive exploration, interaction, and shopping.
+              The Viewer platform functions within a three-component ecosystem: the Editor for creating environments, the Dashboard for analytics, and the Viewer for immersive exploration, interaction, and shopping.
             </p>
             <div className="flex flex-col gap-5">
               {[
@@ -185,7 +196,7 @@ export default function ViewerCaseStudy() {
             <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-medium mb-3">Problem</p>
             <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">Beyond a Visual Refresh</h2>
             <p className="text-[15px] text-gray-500 leading-relaxed mb-6">
-              The initial directive requested a visual refresh with glassmorphism rebranding. However, research revealed deeper issues — the platform created user confusion and lacked social foundations.
+              The initial directive requested a visual refresh with glassmorphism rebranding. However, research revealed deeper issues. The platform created user confusion and lacked social foundations.
             </p>
             <div className="space-y-3 mb-8">
               {[
@@ -212,7 +223,7 @@ export default function ViewerCaseStudy() {
             <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-medium mb-3">Research</p>
             <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">Understanding Users</h2>
             <p className="text-[15px] text-gray-500 leading-relaxed mb-6">
-              I studied three core user groups — consumers, enterprise brands, and independent creators — through observational testing, interviews, and surveys.
+              I studied three core user groups (consumers, enterprise brands, and independent creators) through observational testing, interviews, and surveys.
             </p>
 
             {/* Usability test results */}
@@ -252,7 +263,7 @@ export default function ViewerCaseStudy() {
             <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-medium mb-3">Process</p>
             <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">Minimum Lovable Product</h2>
             <p className="text-[15px] text-gray-500 leading-relaxed mb-6">
-              Rather than a complete redesign, I prioritized high-impact improvements through an MLP strategy with incremental burst testing — shipping small improvements, observing real user behavior, identifying friction, and refining.
+              Rather than a complete redesign, I prioritized high-impact improvements through an MLP strategy with incremental burst testing. Shipping small improvements, observing real user behavior, identifying friction, and refining.
             </p>
             <div className="space-y-6">
               {[
@@ -277,11 +288,11 @@ export default function ViewerCaseStudy() {
             <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">Key Design Decisions</h2>
             <div className="space-y-4">
               {[
-                { title: 'Portrait mode responsiveness', desc: 'Added portrait support — users hold phones upright 95% of the time, reducing onboarding friction' },
+                { title: 'Portrait mode responsiveness', desc: 'Added portrait support. Users hold phones upright 95% of the time, reducing onboarding friction' },
                 { title: 'Visual noise reduction', desc: 'Reorganized controls into collapsible sidebar groupings for immersive focus' },
                 { title: 'Progressive onboarding', desc: 'Default-open menu for first-time users; collapses for returning users' },
                 { title: 'Interactive hotspots', desc: 'Redesigned from static squares to animated pulsing circles to guide attention naturally' },
-                { title: 'Settings redesign', desc: 'Table-style layout replacing tabs — reduced navigation from 3 clicks to 1' },
+                { title: 'Settings redesign', desc: 'Table-style layout replacing tabs, reducing navigation from 3 clicks to 1' },
                 { title: 'Chat & video integration', desc: 'Full-screen default for mobile; sidebar placement for desktop multitasking' },
                 { title: 'Creator vs. guest permissions', desc: 'Creators access additional controls; guests see only relevant settings' },
               ].map(s => (
@@ -334,14 +345,14 @@ export default function ViewerCaseStudy() {
               <p className="text-[15px] text-gray-600 italic leading-relaxed">
                 "I like how clean it looks. I can find the settings now."
               </p>
-              <p className="text-[13px] text-gray-400 mt-3 font-medium">— User feedback, post-launch testing</p>
+              <p className="text-[13px] text-gray-400 mt-3 font-medium">User feedback, post-launch testing</p>
             </div>
 
             <div className="p-6 rounded-2xl bg-gray-50">
               <p className="text-[15px] text-gray-600 italic leading-relaxed">
                 "Exploring products in 3D space is fun... We can use this for smaller, quicker campaigns."
               </p>
-              <p className="text-[13px] text-gray-400 mt-3 font-medium">— Brand partner feedback</p>
+              <p className="text-[13px] text-gray-400 mt-3 font-medium">Brand partner feedback</p>
             </div>
           </ContentSection>
 

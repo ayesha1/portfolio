@@ -455,7 +455,7 @@ export default function TelusCaseStudy() {
               <p className="text-[16px] text-gray-700 italic leading-relaxed">
                 "How can the chatbot effectively address customer needs without live agents?"
               </p>
-              <p className="text-[12px] text-gray-400 mt-2">— Primary Research Question</p>
+              <p className="text-[12px] text-gray-400 mt-2">Primary Research Question</p>
             </div>
           </ContentSection>
 
@@ -819,7 +819,7 @@ export default function TelusCaseStudy() {
               <p className="text-[15px] text-gray-600 italic leading-relaxed">
                 "The layouts were ingeniously conceived, advancing our partnership and fostering cross-team collaboration."
               </p>
-              <p className="text-[13px] text-gray-500 mt-3 font-medium">— Product Manager, TELUS</p>
+              <p className="text-[13px] text-gray-500 mt-3 font-medium">Product Manager, TELUS</p>
             </div>
             <div className="relative group">
               <div className="flex items-center gap-3 p-4 rounded-xl bg-yellow-50 cursor-pointer">
