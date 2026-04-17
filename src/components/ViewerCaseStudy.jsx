@@ -80,13 +80,13 @@ export default function ViewerCaseStudy() {
       <div className="relative w-full h-[85vh] overflow-hidden bg-black">
         {/* Background video/gif */}
         <div className="absolute inset-0 opacity-40">
-          <img src="/viewer-desktop.gif" alt="" className="w-full h-full object-cover" />
+          <img src="/viewer-hero.gif" alt="" className="w-full h-full object-cover" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
 
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8">
           <div className="flex items-center gap-3 mb-6" style={{ animation: 'heroFade 0.8s ease-out 0.2s both' }}>
-            <img src="/napster-logo.png" alt="Napster" className="h-8 object-contain opacity-80 invert" />
+            <img src="/napster-logo.png" alt="Napster" className="h-8 object-contain brightness-0 invert opacity-80" />
           </div>
           <h1 className="font-serif text-4xl lg:text-6xl text-white leading-tight max-w-[700px] mb-6" style={{ animation: 'heroFade 0.8s ease-out 0.4s both' }}>
             A Canvas for Immersive Brand Storytelling
@@ -94,22 +94,25 @@ export default function ViewerCaseStudy() {
           <p className="text-[17px] text-white/70 max-w-[500px] leading-relaxed mb-10" style={{ animation: 'heroFade 0.8s ease-out 0.6s both' }}>
             Redesigning the Viewer platform to transform passive browsing into active 3D exploration.
           </p>
-          <div className="flex gap-8 text-[13px] text-white/50" style={{ animation: 'heroFade 0.8s ease-out 0.8s both' }}>
-            <div className="text-center">
-              <p className="font-semibold text-white/70">Role</p>
-              <p>Lead Visual & Product Designer</p>
+          <div className="flex gap-6 text-[13px] text-white/50 flex-wrap justify-center" style={{ animation: 'heroFade 0.8s ease-out 0.8s both' }}>
+            <div>
+              <span className="text-white/40 text-[10px] uppercase tracking-wider block mb-0.5">Role</span>
+              <span className="text-white/80">Lead Visual & Product Designer</span>
             </div>
-            <div className="text-center">
-              <p className="font-semibold text-white/70">Timeline</p>
-              <p>2 months</p>
+            <div className="w-[1px] bg-white/15 self-stretch" />
+            <div>
+              <span className="text-white/40 text-[10px] uppercase tracking-wider block mb-0.5">Timeline</span>
+              <span className="text-white/80">2 months</span>
             </div>
-            <div className="text-center">
-              <p className="font-semibold text-white/70">Tools</p>
-              <p>Figma, Midjourney, Claude</p>
+            <div className="w-[1px] bg-white/15 self-stretch" />
+            <div>
+              <span className="text-white/40 text-[10px] uppercase tracking-wider block mb-0.5">Tools</span>
+              <span className="text-white/80">Figma, Midjourney, Claude</span>
             </div>
-            <div className="text-center">
-              <p className="font-semibold text-white/70">Platform</p>
-              <p>Web, Phone & VR</p>
+            <div className="w-[1px] bg-white/15 self-stretch" />
+            <div>
+              <span className="text-white/40 text-[10px] uppercase tracking-wider block mb-0.5">Platform</span>
+              <span className="text-white/80">Web, Phone & VR</span>
             </div>
           </div>
         </div>
@@ -159,16 +162,20 @@ export default function ViewerCaseStudy() {
             <p className="text-[15px] text-gray-500 leading-relaxed mb-8">
               The Viewer platform functions within a three-component ecosystem — the Editor for creating environments, the Dashboard for analytics, and the Viewer for immersive exploration, interaction, and shopping.
             </p>
-            <div className="flex gap-4">
+            <div className="flex flex-col gap-5">
               {[
-                { icon: '🎨', title: 'Editor', desc: 'Web-based 3D creation tool' },
-                { icon: '📊', title: 'Dashboard', desc: 'Analytics & management' },
-                { icon: '👁️', title: 'Viewer', desc: 'Immersive player experience' },
+                { title: 'Editor', desc: 'Web-based 3D creation tool', image: '/viewer-editor.gif', pos: 'center' },
+                { title: 'Dashboard', desc: 'Analytics & management', image: '/viewer-dashboard.png', pos: 'top' },
+                { title: 'Viewer', desc: 'Immersive player experience', image: '/viewer-viewer.gif', pos: 'center' },
               ].map(item => (
-                <div key={item.title} className="flex-1 p-4 rounded-xl bg-gray-50">
-                  <span className="text-[20px] block mb-2">{item.icon}</span>
-                  <p className="text-[13px] font-semibold text-gray-800">{item.title}</p>
-                  <p className="text-[11px] text-gray-400">{item.desc}</p>
+                <div key={item.title} className="rounded-2xl overflow-hidden border border-gray-100">
+                  <div className="h-[450px] overflow-hidden">
+                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" style={{ objectPosition: item.pos }} />
+                  </div>
+                  <div className="p-4">
+                    <p className="text-[14px] font-semibold text-gray-800">{item.title}</p>
+                    <p className="text-[12px] text-gray-400">{item.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
