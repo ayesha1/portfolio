@@ -4,7 +4,7 @@ const recs = [
   {
     name: 'Melissa Molina',
     title: 'Creative Director',
-    company: 'Napster',
+    company: 'Napster · ex-Nickelodeon',
     image: '/rec-melissa.png',
     short: "Ayesha jumped right in, identified pain points, uncovered opportunities through research, and translated them into thoughtful flows and prototypes. She's proactive, innovative, and never afraid to take bold design risks that pay off.",
     full: "I was fortunate to collaborate with her on projects like an AI-powered personal assistant. Even when the direction was unclear, Ayesha jumped right in, identified pain points, uncovered opportunities through research, and translated them into thoughtful flows and prototypes. Her work was always rooted in user needs while still pushing the boundaries of what design and AI experiences could be.\n\nShe also spearheaded a full restructure of our design library, setting processes and guidelines that improved efficiency and consistency across the company. She's proactive, innovative, and never afraid to test new tools or take bold design risks that pay off.\n\nOn top of her product design expertise, Ayesha brings animation, prototyping, and even coding skills that give her work a unique edge. And beyond her skills, she's a genuinely collaborative and great person to work with, plus she comes with the sweetest green cheek conure birdie named Boo Boo!\n\nI can't say enough good things about her. Any team would be incredibly lucky to have Ayesha driving innovation and creating experiences that are not only beautiful but impactful.",

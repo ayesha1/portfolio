@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ViewerPrototype from './ViewerPrototype'
 
 function ContentSection({ id, children }) {
   const ref = useRef(null)
@@ -41,6 +42,7 @@ const tocItems = [
 export default function ViewerCaseStudy() {
   const navigate = useNavigate()
   const [activeSection, setActiveSection] = useState('background')
+  const [fullscreenImg, setFullscreenImg] = useState(null)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -163,11 +165,17 @@ export default function ViewerCaseStudy() {
             </div>
 
             {/* Napster description card */}
-            <div className="mb-8 p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100/50 border border-gray-100">
+            <div className="mb-6 p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100/50 border border-gray-100">
               <p className="text-[11px] uppercase tracking-[0.15em] text-gray-400 font-semibold mb-2">About Napster</p>
               <p className="text-[14px] text-gray-600 leading-relaxed">
-                Napster, an AI-powered technology and entertainment company, shifted from music streaming to 3D immersive experiences after its <strong className="text-gray-800">$207M acquisition by Infinite Reality</strong> in March 2025.
+                Napster is an innovative technology and entertainment company focused on developing AI-powered, 3D immersive experiences. In March 2025, Napster was acquired by Infinite Reality for $207 million, marking a major strategic shift from its legacy music-streaming platform to an AI-driven immersive technology company. Today, Napster is focused on <strong className="text-gray-800">building agentic AI systems, virtual experiences, and interactive 3D digital environments</strong>.
               </p>
+            </div>
+
+            {/* Global clients — outside the card */}
+            <div className="mb-8">
+              <p className="text-[11px] uppercase tracking-[0.15em] text-gray-400 font-semibold mb-1">Some of our Global Clients</p>
+              <img src="/viewer-companies.png" alt="Global clients" className="w-full object-contain -mt-2" style={{ mixBlendMode: 'multiply' }} />
             </div>
 
             <p className="text-[15px] text-gray-500 leading-relaxed mb-8">
@@ -241,7 +249,7 @@ export default function ViewerCaseStudy() {
             </div>
 
             <h3 className="text-[16px] font-semibold text-gray-800 mb-4">Key Findings</h3>
-            <div className="space-y-3">
+            <div className="space-y-3 mb-10">
               {[
                 { title: 'Discovery needed structure', desc: 'Users enjoyed exploring but struggled understanding interaction mechanics' },
                 { title: 'Social features were essential', desc: 'Users expected peer interaction similar to Roblox' },
@@ -257,35 +265,122 @@ export default function ViewerCaseStudy() {
                 </div>
               ))}
             </div>
+
+            {/* Strategic insight — campaign velocity */}
+            <h3 className="text-[16px] font-semibold text-gray-800 mb-4">A Strategic Opportunity</h3>
+            <div className="p-6 rounded-2xl bg-gradient-to-br from-purple-50/60 via-pink-50/40 to-blue-50/40 border border-purple-100 mb-4">
+              <p className="text-[11px] uppercase tracking-[0.15em] text-[#4b286d]/70 font-semibold mb-2">Hypothesis</p>
+              <p className="text-[15px] text-gray-700 leading-relaxed">
+                If Viewer reached a polished, systemised look, brands could launch smaller, faster campaigns, shifting the model from a 2–3 month, all-hands effort (3D artists, developers, designers, and PMs) to lightweight, reusable drops that ship in days.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-3 mb-6">
+              <div className="p-4 rounded-xl border border-gray-100">
+                <p className="text-[11px] uppercase tracking-[0.15em] text-gray-400 font-semibold mb-1">Before</p>
+                <p className="text-[13px] text-gray-600 leading-relaxed">Every activation was a bespoke, months-long production requiring full cross-functional teams.</p>
+              </div>
+              <div className="p-4 rounded-xl border border-[#4b286d]/15 bg-[#4b286d]/[0.03]">
+                <p className="text-[11px] uppercase tracking-[0.15em] text-[#4b286d]/70 font-semibold mb-1">After</p>
+                <p className="text-[13px] text-gray-700 leading-relaxed">A shared design system unlocks templated worlds and product drops, lowering the barrier for smaller brands and repeat campaigns.</p>
+              </div>
+            </div>
+            <p className="text-[13px] text-gray-400 italic leading-relaxed">
+              This reframed the refresh as more than a visual upgrade, it became the foundation for a scalable, brand-friendly commerce platform.
+            </p>
           </ContentSection>
 
           <ContentSection id="process">
             <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-medium mb-3">Process</p>
-            <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">Minimum Lovable Product</h2>
+            <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">
+              Minimum <span className="text-gray-300 line-through decoration-gray-400">Viable</span> Lovable Product
+            </h2>
             <p className="text-[15px] text-gray-500 leading-relaxed mb-6">
-              Rather than a complete redesign, I prioritized high-impact improvements through an MLP strategy with incremental burst testing. Shipping small improvements, observing real user behavior, identifying friction, and refining.
+              To reduce risk, engineering and I tested the Viewer experience in short iterative bursts rather than a single large release. Each cycle validated a small set of hypotheses with real users.
             </p>
-            <div className="space-y-6">
-              {[
-                { num: '01', title: 'Clearer Navigation', desc: 'Improved controls and wayfinding throughout the 3D environment' },
-                { num: '02', title: 'Settings Discoverability', desc: 'Made settings and controls easier to find and use' },
-                { num: '03', title: 'Social Interaction Cues', desc: 'Added early signals that other users are present and interactive' },
-                { num: '04', title: 'Glassmorphism Alignment', desc: 'Visual alignment with the new design system across all platforms' },
-              ].map(step => (
-                <div key={step.num} className="flex gap-6">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-900 text-white text-[13px] font-bold flex items-center justify-center">{step.num}</div>
-                  <div className="pt-1">
-                    <p className="text-[16px] font-semibold text-gray-800 mb-2">{step.title}</p>
-                    <p className="text-[14px] text-gray-500 leading-relaxed">{step.desc}</p>
+
+            {/* Testing cycle */}
+            <div className="mb-8 p-5 rounded-2xl bg-gray-50">
+              <p className="text-[11px] uppercase tracking-[0.15em] text-gray-400 font-semibold mb-3">Testing Cycle</p>
+              <div className="flex items-center gap-2 flex-wrap">
+                {['Ship', 'Observe', 'Identify friction', 'Refine', 'Retest'].map((step, i, arr) => (
+                  <div key={step} className="flex items-center gap-2">
+                    <span className="text-[13px] font-semibold text-gray-800 px-3 py-1.5 rounded-full bg-white border border-gray-200">{step}</span>
+                    {i < arr.length - 1 && (
+                      <svg width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M0 4h12M9 1l3 3-3 3" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                    )}
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+            </div>
+
+            <p className="text-[15px] text-gray-500 leading-relaxed mb-8">
+              These bursts helped us quickly identify where users struggled most. For example, testing revealed that while users enjoyed exploring the world, many struggled to locate core settings or understand interaction controls. That insight prioritized navigation clarity and UI hierarchy in later iterations.
+            </p>
+
+            {/* Burst test example */}
+            <div className="mb-8">
+              <p className="text-[11px] uppercase tracking-[0.15em] text-[#4b286d]/70 font-semibold mb-2">Burst Testing</p>
+              <h3 className="text-[18px] font-semibold text-gray-900 mb-3">Simplifying the Interface</h3>
+              <p className="text-[14px] text-gray-500 leading-relaxed mb-5">
+                The first burst test focused on validating the placement of core interaction elements. I introduced a cleaned-up layout with the primary menu consolidated to the right side of the screen, along with early experiments around video interaction and UI hierarchy.
+              </p>
+
+              {/* MLP images */}
+              <div className="grid grid-cols-3 gap-3 mb-5">
+                {[
+                  { src: '/viewer-mlp1.png', label: 'Iteration 1' },
+                  { src: '/viewer-mlp2.png', label: 'Iteration 2' },
+                  { src: '/viewer-mlp3.png', label: 'Iteration 3' },
+                ].map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setFullscreenImg(img)}
+                    className="rounded-xl overflow-hidden border border-gray-100 relative group cursor-pointer"
+                  >
+                    <img src={img.src} alt={img.label} className="w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                      <div className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4b286d" strokeWidth="2.5" strokeLinecap="round">
+                          <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                        </svg>
+                      </div>
+                    </div>
+                    <p className="text-[10px] text-gray-400 text-center py-2 bg-gray-50">{img.label}</p>
+                  </button>
+                ))}
+              </div>
+
+              <p className="text-[13px] text-gray-500 leading-relaxed mb-3">During testing, I evaluated:</p>
+              <ul className="space-y-2 mb-5">
+                {[
+                  'How quickly users discovered the menu',
+                  'Whether right-side placement felt intuitive during navigation',
+                  'How users interacted with video and social controls',
+                  'How UI placement affected movement in 3D space',
+                ].map(item => (
+                  <li key={item} className="flex items-start gap-3 text-[13px] text-gray-600">
+                    <span className="text-gray-300 mt-0.5">·</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <p className="text-[14px] text-gray-500 leading-relaxed italic">
+                Because the test was intentionally lightweight, we could observe real user behavior without committing to a full redesign. Each iteration moved the Viewer closer to a more intuitive and engaging immersive platform.
+              </p>
             </div>
           </ContentSection>
 
           <ContentSection id="solutions">
             <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-medium mb-3">Solutions</p>
             <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">Key Design Decisions</h2>
+
+            {/* Interactive 3D Prototype */}
+            <div className="mb-8 p-6 rounded-2xl bg-gradient-to-br from-purple-50/50 via-pink-50/30 to-blue-50/30 border border-purple-100">
+              <p className="text-[11px] uppercase tracking-[0.15em] text-[#4b286d]/70 font-semibold mb-1">Interactive Prototype</p>
+              <p className="text-[13px] text-gray-500 mb-4">Try it below.</p>
+              <ViewerPrototype />
+            </div>
             <div className="space-y-4">
               {[
                 { title: 'Portrait mode responsiveness', desc: 'Added portrait support. Users hold phones upright 95% of the time, reducing onboarding friction' },
@@ -359,7 +454,34 @@ export default function ViewerCaseStudy() {
         </div>
       </div>
 
+      {/* Fullscreen image viewer */}
+      {fullscreenImg && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 backdrop-blur-md"
+          onClick={() => setFullscreenImg(null)}
+          style={{ animation: 'fsFade 0.3s ease' }}
+        >
+          <img
+            src={fullscreenImg.src}
+            alt={fullscreenImg.label}
+            className="max-w-[90vw] max-h-[90vh] object-contain rounded-xl shadow-2xl"
+            onClick={e => e.stopPropagation()}
+          />
+          <button
+            onClick={() => setFullscreenImg(null)}
+            className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white text-xl hover:bg-white/20 transition-colors"
+          >
+            ×
+          </button>
+          <p className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 text-[12px] font-medium">{fullscreenImg.label}</p>
+        </div>
+      )}
+
       <style>{`
+        @keyframes fsFade {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
         @keyframes heroFade {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
