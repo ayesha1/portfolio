@@ -234,6 +234,14 @@ export default function ViewerCaseStudy() {
               I studied three core user groups (consumers, enterprise brands, and independent creators) through observational testing, interviews, and surveys.
             </p>
 
+            {/* Old Viewer reference */}
+            <div className="mb-8">
+              <div className="rounded-2xl overflow-hidden border border-gray-100 bg-gray-50">
+                <img src="/viewer-old.png" alt="The original Viewer experience" className="w-full h-auto block" />
+              </div>
+              <p className="text-[12px] text-gray-400 italic mt-2 text-center">The original Viewer experience users tested against.</p>
+            </div>
+
             {/* Usability test results */}
             <div className="flex gap-6 mb-8 p-6 rounded-2xl bg-gray-50">
               {[
@@ -264,6 +272,20 @@ export default function ViewerCaseStudy() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Platform decision — mobile-first */}
+            <h3 className="text-[16px] font-semibold text-gray-800 mb-4">Why Mobile, Why Portrait</h3>
+            <div className="flex items-stretch gap-3 mb-10">
+              <div className="flex-1 p-5 rounded-2xl bg-gray-50 border border-gray-100">
+                <p className="text-[28px] font-bold text-[#4b286d]">70%</p>
+                <p className="text-[12px] text-gray-500 mt-1 leading-relaxed">of e-commerce purchases happen on mobile, most of them in portrait mode.</p>
+              </div>
+              <div className="flex-[1.4] p-5 rounded-2xl border border-gray-100">
+                <p className="text-[13px] text-gray-600 leading-relaxed">
+                  That single data point reframed the scope. Instead of designing for the ideal headset or desktop demo, I prioritised the context users actually buy in, one thumb, a phone held upright, and a few seconds of attention.
+                </p>
+              </div>
             </div>
 
             {/* Strategic insight — campaign velocity */}

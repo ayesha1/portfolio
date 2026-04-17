@@ -1,17 +1,22 @@
 import { useState, useEffect, useRef } from 'react'
 
 const folderData = [
-  { name: 'my pet', top: '8%', left: '-120px', delay: 1.2, photos: [
+  { name: 'my pet', top: '5%', left: '-120px', delay: 1.2, photos: [
     '/pet-6CC28C5E-E8E0-4E46-9ADD-EA4C1B7621B1.jpg',
     '/pet-IMG_4040.jpg',
     '/pet-IMG_8824.jpg',
     '/pet-IMG_9958.jpg',
   ]},
-  { name: 'my interests', top: '45%', left: '-85px', delay: 1.6, photos: [
+  { name: 'my interests', top: '40%', left: '-85px', delay: 1.6, photos: [
     '/interest-0d08343f7cda85141750d2c324b333c5.jpg',
     '/interest-DSC04334__1.jpg',
     '/interest-Temply.jpg',
     '/interest-images__11.jpeg',
+  ]},
+  { name: 'me speaking', top: '38%', right: '-95px', delay: 1.8, photos: [
+    '/speaking-1624804336313.jpeg',
+    '/speaking-1652670165418.jpeg',
+    '/speaking-screenshot.png',
   ]},
   { name: 'photos of me', top: '82%', right: '-90px', delay: 2.0, photos: [
     '/me-37DE7D06-8B52-46AB-900F-B4C42F0784A5.jpg',
