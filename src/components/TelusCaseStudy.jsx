@@ -312,7 +312,7 @@ export default function TelusCaseStudy() {
     <div className="min-h-screen bg-white" style={{ cursor: 'auto' }}>
       {/* Back button */}
       <button
-        onClick={() => navigate('/')}
+        onClick={() => navigate('/#case-telus')}
         className="fixed top-6 left-6 z-50 w-10 h-10 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center shadow-lg hover:bg-white transition-colors"
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#333" strokeWidth="2" strokeLinecap="round">

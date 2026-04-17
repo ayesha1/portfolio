@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import Layout from './components/Layout'
 import GlassNavBar from './components/GlassNavBar'
 import HeroSection from './components/HeroSection'
@@ -44,6 +44,21 @@ function FloatingLogo() {
 
 function HomePage() {
   const navigate = useNavigate()
+  const location = useLocation()
+
+  // Scroll to hash target on mount / hash change
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.slice(1)
+      // Wait a tick so sections have rendered
+      requestAnimationFrame(() => {
+        const el = document.getElementById(id)
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+    } else {
+      window.scrollTo({ top: 0 })
+    }
+  }, [location])
 
   return (
     <Layout>

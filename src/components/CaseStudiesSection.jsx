@@ -330,7 +330,9 @@ export default function CaseStudiesSection({ onOpenTelus, onOpenViewer }) {
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 pt-32">
         <div id="featured" ref={featuredRef} className="flex flex-col">
           {caseStudies.map((study, i) => (
-            <FeaturedCard key={study.title} study={study} index={i} onClick={study.type === 'chatbot' ? onOpenTelus : study.type === 'images' ? onOpenViewer : undefined} />
+            <div key={study.title} id={study.type === 'chatbot' ? 'case-telus' : study.type === 'images' ? 'case-viewer' : undefined} style={{ scrollMarginTop: '80px' }}>
+              <FeaturedCard study={study} index={i} onClick={study.type === 'chatbot' ? onOpenTelus : study.type === 'images' ? onOpenViewer : undefined} />
+            </div>
           ))}
         </div>
 
