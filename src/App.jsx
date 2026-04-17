@@ -6,6 +6,7 @@ import HeroSection from './components/HeroSection'
 import CaseStudiesSection from './components/CaseStudiesSection'
 import PlaygroundSection from './components/PlaygroundSection'
 import AboutSection from './components/AboutSection'
+import RecommendationsSection from './components/RecommendationsSection'
 import Footer from './components/Footer'
 import TelusCaseStudy from './components/TelusCaseStudy'
 import ViewerCaseStudy from './components/ViewerCaseStudy'
@@ -52,6 +53,7 @@ function HomePage() {
       <GlassNavBar />
       <HeroSection />
       <CaseStudiesSection onOpenTelus={() => navigate('/case-study/telus')} onOpenViewer={() => navigate('/case-study/viewer')} />
+      <RecommendationsSection />
       <PlaygroundSection />
       <AboutSection />
       <Footer />
