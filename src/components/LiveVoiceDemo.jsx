@@ -304,7 +304,7 @@ export default function LiveVoiceDemo() {
       </div>
 
       <PhoneMockup>
-        <div className="w-full h-full relative overflow-hidden flex flex-col" style={{ fontFamily: "'Sarabun', system-ui, sans-serif", background: '#f7f9ff' }}>
+        <div data-card data-card-type="vri" className="w-full h-full relative overflow-hidden flex flex-col" style={{ fontFamily: "'Sarabun', system-ui, sans-serif", background: '#f7f9ff', cursor: 'pointer' }}>
 
           {/* ─── SUCCESS OVERLAY ─── */}
           {success && (
@@ -636,8 +636,9 @@ export default function LiveVoiceDemo() {
         <p className="mt-4 text-[12px] text-red-500 max-w-[260px] text-center">{error}</p>
       )}
 
-      <p className="mt-4 text-[11px] text-gray-400 max-w-[280px] text-center leading-relaxed italic">
-        Audio is analyzed locally in your browser using the Web Audio API and is never recorded, uploaded, or stored.
+      <p className="mt-4 text-[11px] text-gray-400 max-w-[460px] text-center leading-relaxed italic">
+        Audio is analyzed locally in your browser using the Web Audio API<br />
+        and is never recorded, uploaded, or stored.
       </p>
     </div>
   )
