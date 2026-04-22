@@ -152,9 +152,13 @@ function FeaturedCard({ study, index, onClick }) {
           {/* Visual content */}
           <div className="relative flex-shrink-0 lg:w-[55%] p-4 lg:p-6 flex items-center justify-center overflow-visible">
             {study.type === 'chatbot' ? (
-              <ChatbotDemo isVisible={visible} />
+              <div onClick={(e) => e.stopPropagation()} style={{ cursor: 'auto' }}>
+                <ChatbotDemo isVisible={visible} />
+              </div>
             ) : study.type === 'vri' ? (
-              <VRIScreen isVisible={visible} />
+              <div onClick={(e) => e.stopPropagation()} style={{ cursor: 'auto' }}>
+                <VRIScreen isVisible={visible} />
+              </div>
             ) : study.images ? (
               <div className="relative w-full">
                 {study.images.main && (
@@ -289,7 +293,7 @@ function SideNav({ activeSection, visible }) {
   )
 }
 
-export default function CaseStudiesSection({ onOpenTelus, onOpenViewer }) {
+export default function CaseStudiesSection({ onOpenTelus, onOpenViewer, onOpenSonaphi }) {
   const [activeSection, setActiveSection] = useState('featured')
   const [navVisible, setNavVisible] = useState(false)
   const featuredRef = useRef(null)
@@ -330,8 +334,8 @@ export default function CaseStudiesSection({ onOpenTelus, onOpenViewer }) {
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 pt-32">
         <div id="featured" ref={featuredRef} className="flex flex-col">
           {caseStudies.map((study, i) => (
-            <div key={study.title} id={study.type === 'chatbot' ? 'case-telus' : study.type === 'images' ? 'case-viewer' : undefined} style={{ scrollMarginTop: '80px' }}>
-              <FeaturedCard study={study} index={i} onClick={study.type === 'chatbot' ? onOpenTelus : study.type === 'images' ? onOpenViewer : undefined} />
+            <div key={study.title} id={study.type === 'chatbot' ? 'case-telus' : study.type === 'images' ? 'case-viewer' : study.type === 'vri' ? 'case-sonaphi' : undefined} style={{ scrollMarginTop: '80px' }}>
+              <FeaturedCard study={study} index={i} onClick={study.type === 'chatbot' ? onOpenTelus : study.type === 'images' ? onOpenViewer : study.type === 'vri' ? onOpenSonaphi : undefined} />
             </div>
           ))}
         </div>
