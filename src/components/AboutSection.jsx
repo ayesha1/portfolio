@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 
 const folderData = [
-  { name: 'my pet', top: '5%', left: '-120px', delay: 1.2, photos: [
+  { name: 'my self-appointed life manager', top: '5%', left: '-170px', delay: 1.2, photos: [
     '/pet-6CC28C5E-E8E0-4E46-9ADD-EA4C1B7621B1.jpg',
     '/pet-IMG_4040.jpg',
     '/pet-IMG_8824.jpg',
@@ -17,6 +17,12 @@ const folderData = [
     '/speaking-1624804336313.jpeg',
     '/speaking-1652670165418.jpeg',
     '/speaking-screenshot.png',
+  ]},
+  { name: 'in college 👩🏽‍🏫', top: '10%', right: '-150px', delay: 2.2, photos: [
+    { src: '/college-1.jpeg', position: 'left center', caption: '2nd Place Best of Show for iOS App (Project School-Wide CMPE/SE Department) · Senior Project 2019' },
+    { src: '/college-2.jpeg', caption: 'Elected Chair for SWE 2019 & volunteered at Women in Engineering for 2 years' },
+    '/college-3.jpg',
+    '/college-4.gif',
   ]},
   { name: 'photos of me', top: '82%', right: '-90px', delay: 2.0, photos: [
     '/me-37DE7D06-8B52-46AB-900F-B4C42F0784A5.jpg',
@@ -82,15 +88,32 @@ function FolderWindow({ name, photos, onClose, onPhotoClick }) {
 
         {/* Photo grid */}
         <div className="bg-white p-4 grid grid-cols-2 gap-3 max-h-[400px] overflow-y-auto">
-          {photos.map((photo, i) => (
-            <button
-              key={i}
-              onClick={() => onPhotoClick(photo)}
-              className="aspect-square rounded-[10px] overflow-hidden hover:ring-2 hover:ring-blue-400 transition-all duration-200 hover:scale-[1.02]"
-            >
-              <img src={photo} alt="" className="w-full h-full object-cover" />
-            </button>
-          ))}
+          {photos.map((photo, i) => {
+            const src = typeof photo === 'string' ? photo : photo.src
+            const position = typeof photo === 'string' ? 'center center' : (photo.position || 'center center')
+            const caption = typeof photo === 'string' ? null : photo.caption
+            return (
+              <button
+                key={i}
+                onClick={() => onPhotoClick(src)}
+                className="relative aspect-square rounded-[10px] overflow-hidden hover:ring-2 hover:ring-blue-400 transition-all duration-200 hover:scale-[1.02]"
+              >
+                <img src={src} alt="" className="w-full h-full object-cover" style={{ objectPosition: position }} />
+                {caption && (
+                  <div
+                    className="absolute inset-x-0 bottom-0 px-2 py-1.5 text-[8.5px] text-white leading-tight text-left"
+                    style={{
+                      background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 100%)',
+                      fontWeight: 500,
+                      letterSpacing: '0.1px',
+                    }}
+                  >
+                    {caption}
+                  </div>
+                )}
+              </button>
+            )
+          })}
         </div>
       </div>
 

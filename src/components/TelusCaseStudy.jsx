@@ -819,8 +819,22 @@ export default function TelusCaseStudy() {
               <p className="text-[15px] text-gray-600 italic leading-relaxed">
                 "The layouts were ingeniously conceived, advancing our partnership and fostering cross-team collaboration."
               </p>
-              <p className="text-[13px] text-gray-500 mt-3 font-medium">Product Manager, TELUS</p>
+              <p className="text-[13px] text-gray-500 mt-3 font-medium">Product Manager, TELUS (NDA Protected)</p>
             </div>
+            <div className="mb-4 p-6 rounded-2xl bg-gray-50">
+              <p className="text-[11px] uppercase tracking-[0.15em] text-gray-400 font-semibold mb-3">From leadership</p>
+              <p className="text-[15px] text-gray-700 leading-relaxed italic">
+                "Way to go Ayesha! 👏 Extremely proud of your contribution, dedication and impact! We are indeed very fortunate to have Ayesha on the team."
+              </p>
+              <div className="flex items-center gap-3 mt-4">
+                <img src="/rec-farooq.jpeg" alt="Farooq Ali" className="w-10 h-10 rounded-full object-cover" />
+                <div>
+                  <p className="text-[13px] font-semibold text-gray-800 leading-tight">Farooq Ali</p>
+                  <p className="text-[11px] text-gray-500 leading-tight">Head of Product & Design · US West Market, Thoughtworks</p>
+                </div>
+              </div>
+            </div>
+
             <div className="relative group">
               <div className="flex items-center gap-3 p-4 rounded-xl bg-yellow-50 cursor-pointer">
                 <span className="text-[20px]">⭐</span>

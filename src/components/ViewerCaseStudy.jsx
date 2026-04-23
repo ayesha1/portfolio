@@ -837,11 +837,25 @@ export default function ViewerCaseStudy() {
               <p className="text-[13px] text-gray-400 mt-3 font-medium">User feedback, post-launch testing</p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-gray-50">
+            <div className="p-6 rounded-2xl bg-gray-50 mb-6">
               <p className="text-[15px] text-gray-600 italic leading-relaxed">
                 "Exploring products in 3D space is fun... We can use this for smaller, quicker campaigns."
               </p>
               <p className="text-[13px] text-gray-400 mt-3 font-medium">Brand partner feedback</p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-gray-50">
+              <p className="text-[11px] uppercase tracking-[0.15em] text-gray-400 font-semibold mb-3">From leadership</p>
+              <p className="text-[15px] text-gray-700 leading-relaxed italic">
+                "The redesign of Viewer is a world of difference. Turning retail into an experience and giving our brand a whole new level of presence. Great job on the redesign & prototypes."
+              </p>
+              <div className="flex items-center gap-3 mt-4">
+                <img src="/rec-karina.jpeg" alt="Karina Kogan" className="w-10 h-10 rounded-full object-cover" />
+                <div>
+                  <p className="text-[13px] font-semibold text-gray-800 leading-tight">Karina Kogan</p>
+                  <p className="text-[11px] text-gray-500 leading-tight">President & CMO, Napster · ex-Peloton, ex-OURA</p>
+                </div>
+              </div>
             </div>
           </ContentSection>
 
