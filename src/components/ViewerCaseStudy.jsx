@@ -1,6 +1,355 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import ViewerPrototype from './ViewerPrototype'
+import ViewerPrototype, { ControlRail, CartButton, Hotspot } from './ViewerPrototype'
+
+/* Auto-advancing brand-partnerships slideshow */
+function BrandPartnershipsSlideshow() {
+  const slides = [
+    '/slideshow/slide1.png',
+    '/slideshow/slide2.png',
+    '/slideshow/slide3.png',
+    '/slideshow/slide4.png',
+    '/slideshow/slide5.png',
+    '/slideshow/slide6.png',
+    '/slideshow/slide7.avif',
+    '/slideshow/slide8.avif',
+    '/slideshow/slide9.avif',
+  ]
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    const t = setInterval(() => setIndex(i => (i + 1) % slides.length), 3800)
+    return () => clearInterval(t)
+  }, [slides.length])
+
+  return (
+    <div
+      className="relative w-full overflow-hidden rounded-2xl border border-gray-100 bg-gray-50"
+      style={{ aspectRatio: '16 / 9' }}
+    >
+      {slides.map((src, i) => (
+        <img
+          key={src}
+          src={src}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{
+            opacity: i === index ? 1 : 0,
+            transition: 'opacity 0.9s ease-in-out',
+          }}
+        />
+      ))}
+
+      {/* Dot indicators */}
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIndex(i)}
+            aria-label={`Slide ${i + 1}`}
+            style={{
+              width: i === index ? 18 : 6,
+              height: 6,
+              borderRadius: 999,
+              background: i === index ? '#fff' : 'rgba(255,255,255,0.5)',
+              border: 'none',
+              transition: 'all 0.3s',
+              cursor: 'pointer',
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/* Laptop mockup that loops a muted video inside a MacBook-style frame
+ * with a subtle fake-3D tilt that tracks mouse movement. */
+function LaptopMockup({ src }) {
+  const wrapRef = useRef(null)
+  const [tilt, setTilt] = useState({ x: 0, y: 0, active: false })
+  const [dragging, setDragging] = useState(false)
+  const [showProduct, setShowProduct] = useState(false)
+
+  function computeTilt(clientX, clientY) {
+    const el = wrapRef.current
+    if (!el) return null
+    const rect = el.getBoundingClientRect()
+    const nx = ((clientX - rect.left) / rect.width) * 2 - 1
+    const ny = ((clientY - rect.top) / rect.height) * 2 - 1
+    return { x: -ny * 8, y: nx * 12 }
+  }
+
+  function handleDown(e) {
+    e.preventDefault()
+    setDragging(true)
+    const t = computeTilt(e.clientX, e.clientY)
+    if (t) setTilt({ ...t, active: true })
+  }
+
+  function handleMove(e) {
+    if (!dragging) return
+    const t = computeTilt(e.clientX, e.clientY)
+    if (t) setTilt({ ...t, active: true })
+  }
+
+  function handleUp() {
+    setDragging(false)
+    setTilt({ x: 0, y: 0, active: false })
+  }
+
+  // Track mouseup anywhere (so releasing outside the element still ends the drag)
+  useEffect(() => {
+    if (!dragging) return
+    const onMove = (e) => handleMove(e)
+    const onUp = () => handleUp()
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+    }
+  }, [dragging])
+
+  return (
+    <div className="flex flex-col items-center">
+      <div
+        className="relative w-full"
+        style={{ maxWidth: 720 }}
+      >
+        {/* Screen bezel */}
+        <div
+          className="relative mx-auto"
+          style={{
+            background: 'linear-gradient(145deg, #1d1d20, #0a0a0c)',
+            padding: '14px 14px 22px 14px',
+            borderRadius: '14px 14px 6px 6px',
+            boxShadow: '0 20px 60px rgba(16,16,39,0.18), 0 4px 12px rgba(16,16,39,0.08)',
+          }}
+        >
+          {/* Camera dot */}
+          <div
+            className="absolute left-1/2 -translate-x-1/2"
+            style={{ top: 6, width: 4, height: 4, borderRadius: 999, background: '#2a2a30' }}
+          />
+          {/* Screen — only the video inside tilts in fake 3D (drag to rotate) */}
+          <div
+            ref={wrapRef}
+            onMouseDown={handleDown}
+            data-card
+            data-card-type="images"
+            className="relative overflow-hidden bg-black select-none"
+            style={{
+              borderRadius: 4,
+              aspectRatio: '16 / 10',
+              perspective: 900,
+              cursor: dragging ? 'grabbing' : 'grab',
+            }}
+          >
+            <video
+              src={src}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{
+                transformStyle: 'preserve-3d',
+                transform: `scale(1.06) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) translateZ(0)`,
+                transformOrigin: 'center center',
+                transition: tilt.active
+                  ? 'transform 0.12s ease-out'
+                  : 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)',
+                willChange: 'transform',
+              }}
+            />
+            {/* Hotspot over the shoes (center of the screen) */}
+            <div
+              onMouseEnter={() => setShowProduct(true)}
+              onMouseLeave={() => setShowProduct(false)}
+              style={{ position: 'absolute', top: '56%', left: '53%', transform: 'translate(-50%, -50%)' }}
+            >
+              <div style={{ position: 'relative' }}>
+                <Hotspot top="0" left="0" />
+              </div>
+            </div>
+
+            {/* Product hover card — same proportions as original, just scaled smaller */}
+            {showProduct && (
+              <div
+                className="absolute z-30 overflow-hidden flex pointer-events-none"
+                style={{
+                  top: '56%',
+                  left: '53%',
+                  transform: 'translate(-50%, calc(-100% - 28px)) scale(0.68)',
+                  transformOrigin: 'bottom center',
+                  width: 300,
+                  height: 120,
+                  borderRadius: 14,
+                  background: 'rgba(0,0,0,0.45)',
+                  backdropFilter: 'blur(24px) saturate(1.3)',
+                  WebkitBackdropFilter: 'blur(24px) saturate(1.3)',
+                  boxShadow: '0 12px 32px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.15)',
+                  animation: 'nikeCardPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                }}
+              >
+                {/* Image */}
+                <div className="relative flex-shrink-0" style={{ width: 130, height: 120 }}>
+                  <img
+                    src="/nike-shoe.png"
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover"
+                    draggable={false}
+                  />
+                </div>
+                {/* Divider */}
+                <div style={{ width: 1, background: 'rgba(255,255,255,0.2)' }} />
+                {/* Text */}
+                <div className="flex-1 flex flex-col justify-center px-3.5 py-3 text-white">
+                  <p className="font-bold leading-tight" style={{ fontSize: 13, letterSpacing: '-0.1px' }}>
+                    Nike's Air Max 270
+                  </p>
+                  <p className="text-white/75 leading-snug mt-1" style={{ fontSize: 10 }}>
+                    Nike's first lifestyle Air Max.
+                  </p>
+                  <p className="font-bold mt-2" style={{ fontSize: 12 }}>$190.99</p>
+                </div>
+              </div>
+            )}
+
+            <style>{`
+              @keyframes nikeCardPop {
+                0% { opacity: 0; transform: translate(-50%, calc(-100% - 12px)) scale(0.7); }
+                100% { opacity: 1; transform: translate(-50%, calc(-100% - 28px)) scale(0.68); }
+              }
+            `}</style>
+
+            {/* Bottom-left glass info card */}
+            <div
+              className="absolute pointer-events-none"
+              style={{
+                left: 18,
+                bottom: 18,
+                padding: '12px 16px',
+                borderRadius: 14,
+                background: 'rgba(20, 20, 30, 0.35)',
+                backdropFilter: 'blur(14px) saturate(1.3)',
+                WebkitBackdropFilter: 'blur(14px) saturate(1.3)',
+                border: '1px solid rgba(255,255,255,0.18)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+                color: '#fff',
+                fontFamily: "'Sarabun', system-ui, sans-serif",
+                minWidth: 190,
+                transform: 'scale(0.82)',
+                transformOrigin: 'bottom left',
+              }}
+            >
+              {/* Title row with Nike logo */}
+              <div className="flex items-center gap-1">
+                <img
+                  src="/nike-logo.png"
+                  alt=""
+                  style={{ width: 20, height: 'auto', flexShrink: 0 }}
+                />
+                <p style={{ fontSize: 13, fontWeight: 600, letterSpacing: 0.3 }}>
+                  Nike <span style={{ opacity: 0.75, fontWeight: 400 }}>×</span> GE Lighting World
+                </p>
+              </div>
+
+              {/* Subtitle */}
+              <p style={{ fontSize: 10.5, fontWeight: 400, opacity: 0.85, marginTop: 4, letterSpacing: 0.2 }}>
+                Collect all the Shoes
+              </p>
+
+              {/* Shoe collection counter card */}
+              <div
+                className="mt-2.5 flex items-baseline gap-2 px-3 py-1.5"
+                style={{
+                  borderRadius: 10,
+                  border: '1px solid rgba(255,255,255,0.3)',
+                  background: 'rgba(255,255,255,0.06)',
+                }}
+              >
+                <p style={{ fontSize: 10, fontWeight: 600, letterSpacing: 0.3 }}>Shoe Collection</p>
+                <p style={{ fontSize: 9.5, opacity: 0.85, marginLeft: 'auto' }}>
+                  <span style={{ fontWeight: 700 }}>0</span>
+                  <span style={{ opacity: 0.7 }}> / 10</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Right-side control rail (reused from mobile) — vertically centered */}
+            <div
+              className="absolute"
+              style={{
+                right: 6,
+                top: '50%',
+                width: 90,
+                height: 340,
+                transform: 'translateY(-50%) scale(0.72)',
+                transformOrigin: 'right center',
+              }}
+            >
+              <ControlRail />
+            </div>
+
+            {/* Top-right cart — standalone, separate from the rail */}
+            <div
+              className="absolute"
+              style={{
+                top: -8, right: 6, width: 70, height: 80,
+                transform: 'scale(0.75)',
+                transformOrigin: 'top right',
+              }}
+            >
+              <CartButton count={0} />
+            </div>
+
+            {/* Specular gloss that tracks the tilt */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: `linear-gradient(${105 + tilt.y * 3}deg, rgba(255,255,255,${0.10 + Math.abs(tilt.y) * 0.006}) 0%, rgba(255,255,255,0) 35%, rgba(255,255,255,0) 65%, rgba(255,255,255,${0.04 + Math.abs(tilt.x) * 0.004}) 100%)`,
+                mixBlendMode: 'screen',
+                transition: 'background 0.15s ease-out',
+              }}
+            />
+          </div>
+          {/* Speaker/chin indent */}
+          <div
+            className="absolute left-1/2 -translate-x-1/2"
+            style={{ bottom: 8, width: 54, height: 4, borderRadius: 999, background: '#2a2a30' }}
+          />
+        </div>
+
+        {/* Base / hinge */}
+        <div
+          className="mx-auto"
+          style={{
+            width: '108%',
+            height: 12,
+            marginLeft: '-4%',
+            marginTop: -2,
+            background: 'linear-gradient(180deg, #2a2a30 0%, #1a1a1e 45%, #0c0c0e 100%)',
+            borderRadius: '0 0 10px 10px',
+            boxShadow: '0 10px 24px rgba(16,16,39,0.25)',
+          }}
+        />
+        <div
+          className="mx-auto"
+          style={{
+            width: '36%',
+            height: 5,
+            marginTop: 0,
+            background: '#111',
+            borderRadius: '0 0 8px 8px',
+            opacity: 0.8,
+          }}
+        />
+      </div>
+    </div>
+  )
+}
 
 function ContentSection({ id, children }) {
   const ref = useRef(null)
@@ -206,6 +555,18 @@ export default function ViewerCaseStudy() {
             <p className="text-[15px] text-gray-500 leading-relaxed mb-6">
               The initial directive requested a visual refresh with glassmorphism rebranding. However, research revealed deeper issues. The platform created user confusion and lacked social foundations.
             </p>
+
+            {/* Slideshow of brand partnership worlds */}
+            <div className="mb-8">
+              <BrandPartnershipsSlideshow />
+              <p className="text-[12px] text-gray-400 italic mt-3 text-center">
+                Napster's brand partnerships for web-based immersive experiences.
+              </p>
+              <p className="text-[14px] text-gray-600 leading-relaxed mt-5">
+                Brands were asking for faster, lighter-weight launches, but the existing Viewer visuals felt dated next to the bespoke brand worlds we were shipping. I drew on my experience designing those partnership worlds to pull a shared visual language back into the core platform, so every future activation could launch on a cohesive, modern foundation instead of starting from scratch.
+              </p>
+            </div>
+
             <div className="space-y-3 mb-8">
               {[
                 'Low trust during first sessions',
@@ -410,14 +771,25 @@ export default function ViewerCaseStudy() {
                 { title: 'Progressive onboarding', desc: 'Default-open menu for first-time users; collapses for returning users' },
                 { title: 'Interactive hotspots', desc: 'Redesigned from static squares to animated pulsing circles to guide attention naturally' },
                 { title: 'Settings redesign', desc: 'Table-style layout replacing tabs, reducing navigation from 3 clicks to 1' },
-                { title: 'Chat & video integration', desc: 'Full-screen default for mobile; sidebar placement for desktop multitasking' },
+                {
+                  title: 'Chat & video integration',
+                  desc: 'Full-screen default for mobile; sidebar placement for desktop multitasking',
+                  extra: (
+                    <div className="mt-6 pt-6 border-t border-gray-100">
+                      <p className="text-[11px] uppercase tracking-[0.15em] text-[#4b286d]/70 font-semibold mb-1">Desktop Walkthrough</p>
+                      <p className="text-[13px] text-gray-500 mb-6">Chat and video living side-by-side with the 3D world on desktop.</p>
+                      <LaptopMockup src="/viewer-laptop.mp4" />
+                    </div>
+                  ),
+                },
                 { title: 'Creator vs. guest permissions', desc: 'Creators access additional controls; guests see only relevant settings' },
               ].map(s => (
                 <div key={s.title} className="flex items-start gap-4 p-4 rounded-xl border border-gray-100">
                   <div className="w-2 h-2 rounded-full bg-gray-900 mt-2 flex-shrink-0" />
-                  <div>
+                  <div className="flex-1 min-w-0">
                     <p className="text-[14px] font-semibold text-gray-800">{s.title}</p>
                     <p className="text-[13px] text-gray-400 mt-0.5">{s.desc}</p>
+                    {s.extra}
                   </div>
                 </div>
               ))}

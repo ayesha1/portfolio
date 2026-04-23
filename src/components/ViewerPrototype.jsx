@@ -61,6 +61,8 @@ export default function ViewerPrototype() {
   return (
     <div className="flex items-center justify-center py-12">
       <div
+        data-card
+        data-card-type="images"
         className="relative rounded-[44px] border-[10px] border-gray-900 bg-gray-900 shadow-2xl overflow-hidden"
         style={{ width: 320, height: 650 }}
       >
@@ -263,7 +265,7 @@ function Joystick({ onChange }) {
 }
 
 /* ── Right-side control rail (video call / XR controls) ── */
-function ControlRail() {
+export function ControlRail() {
   const [collapsed, setCollapsed] = useState(false)
 
   const iconBtn = "flex items-center justify-center transition-all hover:opacity-100 opacity-85 active:scale-90"
@@ -335,7 +337,7 @@ function ControlRail() {
 }
 
 /* ── Hotspot glow (pulsing marker for interactive products) ── */
-function Hotspot({ top, left, onClick }) {
+export function Hotspot({ top, left, onClick }) {
   return (
     <button
       aria-label="View product"
@@ -737,7 +739,7 @@ function CartView({ items, onClose, onUpdateQty }) {
 }
 
 /* ── Top-right cart button (glassmorphism pill) ── */
-function CartButton({ count = 0, bounce = false, onClick }) {
+export function CartButton({ count = 0, bounce = false, onClick }) {
   return (
     <div className="absolute top-12 right-3 z-30">
       <button
