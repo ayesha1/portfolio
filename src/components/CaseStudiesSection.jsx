@@ -42,11 +42,11 @@ const caseStudies = [
     ],
   },
   {
-    tags: ['AI Research', 'Founding Designer'],
+    tags: ['Mobile Design', 'User Interaction'],
     title: 'Research App that Powers AI COVID-19 Testing',
     description:
       'An interactive system that visualizes sound in real time, converting voice and audio into dynamic visual experiences for medical research.\n\nA voice research initiative using vocal biomarkers to detect COVID-19 through Machine Learning.',
-    categories: ['Audio Visualization', 'Founding Designer'],
+    categories: ['Mobile Design', 'User Interaction'],
     logos: ['/sonaphi-logo.png'],
     type: 'vri',
     reverse: true,
