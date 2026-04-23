@@ -18,6 +18,13 @@ const folderData = [
     '/speaking-1652670165418.jpeg',
     '/speaking-screenshot.png',
   ]},
+  { name: 'myawards.txt', top: '70%', left: '-180px', delay: 2.4, type: 'text', icon: '/txt-file.png', text: `- MIT Reality Hack 2024 Honorable Mention for using Bezi
+- AR/VR Hackathon for Thoughtworks 2023
+- Spotlight Award for Thoughtworks | March 2022 West + Canada Market Update
+- 2nd Place in Hacking for Humanity Hackathon for Girls in Tech | $1,500 for second place
+- Best of Show (Project School-Wide CMPE/SE Department) for Senior Project at SJSU out of 400 graduating seniors
+- Certificate of Leadership for CodePath's Tech Fellow Society for leading a class of 80 students in an iOS programming boot camp | Also received $400 for most students nationwide
+- Best Community Development Project Award for UmmaHacks Hackathon` },
   { name: 'in college 👩🏽‍🏫', top: '10%', right: '-150px', delay: 2.2, photos: [
     { src: '/college-1.jpeg', position: 'left center', caption: '2nd Place Best of Show for iOS App (Project School-Wide CMPE/SE Department) · Senior Project 2019' },
     { src: '/college-2.jpeg', caption: 'Elected Chair for SWE 2019 & volunteered at Women in Engineering for 2 years' },
@@ -33,7 +40,7 @@ const folderData = [
   ]},
 ]
 
-function FolderIcon({ name, style, visible, delay, onClick }) {
+function FolderIcon({ name, style, visible, delay, onClick, icon }) {
   return (
     <button
       onClick={onClick}
@@ -45,25 +52,29 @@ function FolderIcon({ name, style, visible, delay, onClick }) {
         transitionDelay: `${delay}s`,
       }}
     >
-      <svg width="68" height="56" viewBox="0 0 48 40" fill="none">
-        <path d="M4 6h12l4 4h24a4 4 0 0 1 4 4v20a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V10a4 4 0 0 1 4-4z" fill="url(#fg)" />
-        <path d="M4 6h12l4 4h24a4 4 0 0 1 4 4H0V10a4 4 0 0 1 4-4z" fill="url(#ft)" />
-        <defs>
-          <linearGradient id="fg" x1="24" y1="6" x2="24" y2="38" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#7DD3FC" /><stop offset="1" stopColor="#38BDF8" />
-          </linearGradient>
-          <linearGradient id="ft" x1="24" y1="6" x2="24" y2="14" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#93E1FE" /><stop offset="1" stopColor="#5CC8F7" />
-          </linearGradient>
-        </defs>
-      </svg>
+      {icon ? (
+        <img src={icon} alt="" style={{ width: 56, height: 56, objectFit: 'contain' }} />
+      ) : (
+        <svg width="68" height="56" viewBox="0 0 48 40" fill="none">
+          <path d="M4 6h12l4 4h24a4 4 0 0 1 4 4v20a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V10a4 4 0 0 1 4-4z" fill="url(#fg)" />
+          <path d="M4 6h12l4 4h24a4 4 0 0 1 4 4H0V10a4 4 0 0 1 4-4z" fill="url(#ft)" />
+          <defs>
+            <linearGradient id="fg" x1="24" y1="6" x2="24" y2="38" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#7DD3FC" /><stop offset="1" stopColor="#38BDF8" />
+            </linearGradient>
+            <linearGradient id="ft" x1="24" y1="6" x2="24" y2="14" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#93E1FE" /><stop offset="1" stopColor="#5CC8F7" />
+            </linearGradient>
+          </defs>
+        </svg>
+      )}
       <span className="text-[10px] text-gray-500 font-medium whitespace-nowrap">{name}</span>
     </button>
   )
 }
 
 /* Finder-style folder window */
-function FolderWindow({ name, photos, onClose, onPhotoClick }) {
+function FolderWindow({ name, photos, text, onClose, onPhotoClick }) {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center" onClick={onClose}>
       {/* Backdrop */}
@@ -86,7 +97,17 @@ function FolderWindow({ name, photos, onClose, onPhotoClick }) {
           <div />
         </div>
 
-        {/* Photo grid */}
+        {/* Text file contents */}
+        {text ? (
+          <div className="bg-white px-6 py-5 max-h-[460px] overflow-y-auto">
+            <pre
+              className="whitespace-pre-wrap text-[13px] text-gray-700 leading-relaxed"
+              style={{ fontFamily: "'SF Mono', 'Menlo', 'Courier New', monospace" }}
+            >
+              {text}
+            </pre>
+          </div>
+        ) : (
         <div className="bg-white p-4 grid grid-cols-2 gap-3 max-h-[400px] overflow-y-auto">
           {photos.map((photo, i) => {
             const src = typeof photo === 'string' ? photo : photo.src
@@ -115,6 +136,7 @@ function FolderWindow({ name, photos, onClose, onPhotoClick }) {
             )
           })}
         </div>
+        )}
       </div>
 
       <style>{`
@@ -266,10 +288,11 @@ export default function AboutSection() {
             <FolderIcon
               key={folder.name}
               name={folder.name}
+              icon={folder.icon}
               style={{ top: folder.top, left: folder.left, right: folder.right }}
               visible={visible}
               delay={folder.delay}
-              onClick={() => folder.photos && setOpenFolder(folder)}
+              onClick={() => (folder.photos || folder.text) && setOpenFolder(folder)}
             />
           ))}
 
@@ -323,6 +346,7 @@ export default function AboutSection() {
         <FolderWindow
           name={openFolder.name}
           photos={openFolder.photos}
+          text={openFolder.text}
           onClose={() => setOpenFolder(null)}
           onPhotoClick={(photo) => setFullscreenPhoto(photo)}
         />
