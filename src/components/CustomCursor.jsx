@@ -12,9 +12,21 @@ export default function CustomCursor() {
   const [onCard, setOnCard] = useState(false)
   const [cardType, setCardType] = useState(null)
   const [onHero, setOnHero] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const pos = useRef({ x: 0, y: 0 })
   const target = useRef({ x: 0, y: 0 })
   const raf = useRef(null)
+
+  useEffect(() => {
+    const hide = () => setHidden(true)
+    const show = () => setHidden(false)
+    window.addEventListener('custom-cursor-hide', hide)
+    window.addEventListener('custom-cursor-show', show)
+    return () => {
+      window.removeEventListener('custom-cursor-hide', hide)
+      window.removeEventListener('custom-cursor-show', show)
+    }
+  }, [])
 
   useEffect(() => {
     function handleMouseMove(e) {
@@ -62,7 +74,11 @@ export default function CustomCursor() {
     <div
       ref={cursorRef}
       className="fixed top-0 left-0 pointer-events-none z-[9999]"
-      style={{ willChange: 'transform' }}
+      style={{
+        willChange: 'transform',
+        opacity: hidden ? 0 : 1,
+        transition: 'opacity 0.2s ease',
+      }}
     >
       <div
         className="rounded-full -translate-x-1/2 -translate-y-1/2"

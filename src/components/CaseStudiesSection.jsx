@@ -293,7 +293,7 @@ function SideNav({ activeSection, visible }) {
   )
 }
 
-export default function CaseStudiesSection({ onOpenTelus, onOpenViewer, onOpenSonaphi }) {
+export default function CaseStudiesSection({ onOpenTelus, onOpenViewer, onOpenSonaphi, onOpenSpaces }) {
   const [activeSection, setActiveSection] = useState('featured')
   const [navVisible, setNavVisible] = useState(false)
   const featuredRef = useRef(null)
@@ -334,8 +334,8 @@ export default function CaseStudiesSection({ onOpenTelus, onOpenViewer, onOpenSo
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 pt-32">
         <div id="featured" ref={featuredRef} className="flex flex-col">
           {caseStudies.map((study, i) => (
-            <div key={study.title} id={study.type === 'chatbot' ? 'case-telus' : study.type === 'images' ? 'case-viewer' : study.type === 'vri' ? 'case-sonaphi' : undefined} style={{ scrollMarginTop: '80px' }}>
-              <FeaturedCard study={study} index={i} onClick={study.type === 'chatbot' ? onOpenTelus : study.type === 'images' ? onOpenViewer : study.type === 'vri' ? onOpenSonaphi : undefined} />
+            <div key={study.title} id={study.type === 'chatbot' ? 'case-telus' : study.type === 'images' ? 'case-viewer' : study.type === 'vri' ? 'case-sonaphi' : study.type === 'spaces' ? 'case-spaces' : undefined} style={{ scrollMarginTop: '80px' }}>
+              <FeaturedCard study={study} index={i} onClick={study.type === 'chatbot' ? onOpenTelus : study.type === 'images' ? onOpenViewer : study.type === 'vri' ? onOpenSonaphi : study.type === 'spaces' ? onOpenSpaces : undefined} />
             </div>
           ))}
         </div>
@@ -358,7 +358,7 @@ export default function CaseStudiesSection({ onOpenTelus, onOpenViewer, onOpenSo
           <div className="grid grid-cols-1 md:grid-cols-2 gap-14">
             {[
               { title: 'Apple Enterprise Cloud Management', tag: 'Enterprise', challenge: 'Scaling', industry: 'Enterprise', image: '/apple.png' },
-              { title: 'Napster Spaces', subtitle: 'AI Avatars to Agents', tag: 'Web Platform', challenge: 'Growth', industry: 'AI', video: '/new_spaces.mov' },
+              { title: 'Napster Spaces', subtitle: 'AI Avatars to Agents', tag: 'Web Platform', challenge: 'Growth', industry: 'AI', video: '/new_spaces.mov', onOpen: 'spaces' },
               { title: 'Forma', subtitle: 'AI Image Editor', tag: 'AI / Design Tool', challenge: '0→1', industry: 'AI', video: '/formanew.mov' },
               { title: '3D World Editor', subtitle: 'Democratizing 3D World Building', tag: 'Design System', challenge: '0→1', industry: 'Immersive', video: '/editor2.mp4' },
               { title: 'Blue Shield & Facebook', subtitle: 'Anti-Bullying App', tag: 'Social Wellness', challenge: '0→1', industry: 'Social', image: '/blue.png', light: true, bordered: true, contain: true },
@@ -366,7 +366,15 @@ export default function CaseStudiesSection({ onOpenTelus, onOpenViewer, onOpenSo
               { title: 'Spacious Places', subtitle: 'VR Music Therapy', tag: 'VR / Meta Quest', challenge: '0→1', industry: 'Immersive', image: '/spacious.gif' },
               { title: 'Immersive Museum Experience', subtitle: 'AR Cultural Exploration', tag: 'AR / Gov & Thoughtworks', challenge: 'Ambiguous', industry: 'Immersive', image: '/lincoln.gif' },
             ].map((project) => (
-              <div key={project.title} data-card data-card-type="project" className={`group relative rounded-2xl overflow-hidden aspect-[4/3] hover:-translate-y-1 transition-all duration-300 cursor-pointer ${project.bordered ? 'border border-gray-200 bg-white' : 'bg-gradient-to-br from-gray-100 to-gray-50'}`}>
+              <div
+                key={project.title}
+                id={project.onOpen === 'spaces' ? 'case-spaces' : undefined}
+                data-card
+                data-card-type="project"
+                onClick={project.onOpen === 'spaces' ? onOpenSpaces : undefined}
+                style={project.onOpen === 'spaces' ? { scrollMarginTop: '80px' } : undefined}
+                className={`group relative rounded-2xl overflow-hidden aspect-[4/3] hover:-translate-y-1 transition-all duration-300 cursor-pointer ${project.bordered ? 'border border-gray-200 bg-white' : 'bg-gradient-to-br from-gray-100 to-gray-50'}`}
+              >
                 {/* Image or placeholder */}
                 {project.video ? (
                   <video src={project.video} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
