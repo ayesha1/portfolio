@@ -447,7 +447,7 @@ function BeforeSlideshow() {
   )
 }
 
-function ContentSection({ id, children }) {
+function ContentSection({ id, children, className = 'mb-24' }) {
   const ref = useRef(null)
   const [visible, setVisible] = useState(false)
 
@@ -464,7 +464,7 @@ function ContentSection({ id, children }) {
     <section
       ref={ref}
       id={id}
-      className="mb-24 transition-all duration-700"
+      className={`${className} transition-all duration-700`}
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(30px)',
@@ -489,6 +489,7 @@ export default function SpacesCaseStudy() {
   const navigate = useNavigate()
   const [activeSection, setActiveSection] = useState('background')
   const [onPrototype, setOnPrototype] = useState(false)
+  const [showScrollHint, setShowScrollHint] = useState(false)
   const prototypeRef = useRef(null)
 
   useEffect(() => {
@@ -554,6 +555,16 @@ export default function SpacesCaseStudy() {
     }
   }, [])
 
+  // After 5s of sitting on the prototype section, reveal a scroll-to-results hint
+  useEffect(() => {
+    if (!onPrototype) {
+      setShowScrollHint(false)
+      return
+    }
+    const t = setTimeout(() => setShowScrollHint(true), 20000)
+    return () => clearTimeout(t)
+  }, [onPrototype])
+
   // Hide the back button while the full-bleed prototype is on screen
   useEffect(() => {
     function check() {
@@ -578,6 +589,39 @@ export default function SpacesCaseStudy() {
 
   return (
     <div className="min-h-screen bg-white" style={{ cursor: 'auto', overflowX: 'clip' }}>
+      {/* Scroll-to-results hint — shown after 5s on the prototype */}
+      <button
+        onClick={() => {
+          const el = document.getElementById('results')
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }}
+        aria-label="Scroll to results"
+        className="fixed left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2.5 rounded-full text-white"
+        style={{
+          bottom: 32,
+          opacity: onPrototype && showScrollHint ? 1 : 0,
+          pointerEvents: onPrototype && showScrollHint ? 'auto' : 'none',
+          background: 'rgba(15, 10, 40, 0.7)',
+          backdropFilter: 'blur(14px) saturate(1.3)',
+          WebkitBackdropFilter: 'blur(14px) saturate(1.3)',
+          border: '1px solid rgba(255,255,255,0.18)',
+          boxShadow: '0 10px 28px rgba(0,0,0,0.35)',
+          transition: 'opacity 0.45s ease',
+          animation: onPrototype && showScrollHint ? 'spacesScrollBob 2s ease-in-out infinite' : 'none',
+        }}
+      >
+        <span style={{ fontSize: 12, fontWeight: 500, letterSpacing: 0.3 }}>See the results</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 5v14M5 12l7 7 7-7" />
+        </svg>
+        <style>{`
+          @keyframes spacesScrollBob {
+            0%, 100% { transform: translate(-50%, 0); }
+            50%      { transform: translate(-50%, 6px); }
+          }
+        `}</style>
+      </button>
+
       {/* Back button — hidden while the prototype is in view */}
       <button
         onClick={() => navigate('/#case-spaces')}
@@ -820,7 +864,7 @@ export default function SpacesCaseStudy() {
                       <div
                         className="absolute inset-0 flex items-center justify-center"
                         style={{
-                          background: 'rgba(124, 92, 255, 0.12)',
+                          background: 'rgba(124, 92, 255, 0.3)',
                           border: '2px solid rgba(124, 92, 255, 0)',
                           borderRadius: 10,
                           boxShadow: '0 0 0 0 rgba(124,92,255,0)',
@@ -966,7 +1010,7 @@ export default function SpacesCaseStudy() {
           </ContentSection>
 
           {/* Prototype */}
-          <ContentSection id="prototype">
+          <ContentSection id="prototype" className="mb-8">
             <p className="text-[11px] uppercase tracking-[0.2em] font-medium mb-3" style={{ color: PURPLE }}>Prototype</p>
             <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">Try it yourself</h2>
             <p className="text-[15px] text-gray-500 leading-relaxed mb-4">
@@ -1018,9 +1062,6 @@ export default function SpacesCaseStudy() {
       <div className="max-w-[1100px] mr-auto ml-[max(24px,calc((100vw-1100px)*0.28))] px-6 lg:px-12 pt-16 pb-32 flex gap-16">
         <div className="hidden lg:block w-[180px] flex-shrink-0" />
         <div className="flex-1 min-w-0">
-          <p className="text-[12px] text-gray-400 italic mb-12 text-center">
-            Tip, try a site with a distinct color palette (e.g. nike.com, stripe.com) to see how the scene shifts.
-          </p>
 
           {/* Results */}
           <ContentSection id="results">
