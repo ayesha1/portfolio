@@ -1,21 +1,21 @@
 import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { useNavigate } from 'react-router-dom'
-import before01 from '../assets/Spaces/first images of spaces/01.png'
-import before03 from '../assets/Spaces/first images of spaces/03.png'
-import before04 from '../assets/Spaces/first images of spaces/04.png'
-import before05 from '../assets/Spaces/first images of spaces/05.png'
-import before06 from '../assets/Spaces/first images of spaces/06.png'
-import before07 from '../assets/Spaces/first images of spaces/07.png'
-import before08 from '../assets/Spaces/first images of spaces/08.png'
-import before09 from '../assets/Spaces/first images of spaces/09.png'
-import before10 from '../assets/Spaces/first images of spaces/10.png'
-import before11 from '../assets/Spaces/first images of spaces/11.png'
-import beforeUX from '../assets/Spaces/first images of spaces/Napster Spaces UX Improvements.png'
-import secondImg from '../assets/Spaces/quickj ux/second.png'
-import spacesPressImg from '../assets/Spaces/quickj ux/spaces-press.png'
-
-const beforeImages = [before01, before03, before04, before05, before06, before07, before08, before09, before10, before11, beforeUX]
+const beforeImages = [
+  '/spaces-before/01.png',
+  '/spaces-before/03.png',
+  '/spaces-before/04.png',
+  '/spaces-before/05.png',
+  '/spaces-before/06.png',
+  '/spaces-before/07.png',
+  '/spaces-before/08.png',
+  '/spaces-before/09.png',
+  '/spaces-before/10.png',
+  '/spaces-before/11.png',
+  '/spaces-before/Napster_Spaces_UX_Improvements.png',
+]
+const secondImg = '/spaces-quickux/second.png'
+const spacesPressImg = '/spaces-quickux/spaces-press.png'
 
 /* Scale-to-fit helper: measures available width and shrinks a fixed-size child
  * proportionally, preserving aspect ratio. Used on flow diagrams + pinned overlays
@@ -774,7 +774,7 @@ export default function SpacesCaseStudy() {
 
               <div className="relative w-full rounded-2xl overflow-hidden border border-gray-200 bg-black">
                 <video
-                  src="/spaces-quickux.mov"
+                  src="/spaces-quickux.mp4"
                   autoPlay
                   loop
                   muted
