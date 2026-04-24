@@ -760,13 +760,15 @@ export default function SpacesCaseStudy() {
       {/* Scroll-to-results hint — shown after 5s on the prototype */}
       <button
         onClick={() => {
-          const el = document.getElementById('results')
+          const el = document.getElementById('claude-flow')
           if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
         }}
-        aria-label="Scroll to results"
-        className="fixed left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2.5 rounded-full text-white"
+        aria-label="See Feature Concept"
+        className="fixed z-50 flex items-center justify-center gap-2 px-4 py-2.5 rounded-full text-white"
         style={{
           bottom: 32,
+          left: '50%',
+          transform: 'translateX(-50%)',
           opacity: onPrototype && showScrollHint ? 1 : 0,
           pointerEvents: onPrototype && showScrollHint ? 'auto' : 'none',
           background: 'rgba(15, 10, 40, 0.7)',
@@ -778,7 +780,7 @@ export default function SpacesCaseStudy() {
           animation: onPrototype && showScrollHint ? 'spacesScrollBob 2s ease-in-out infinite' : 'none',
         }}
       >
-        <span style={{ fontSize: 12, fontWeight: 500, letterSpacing: 0.3 }}>See the results</span>
+        <span style={{ fontSize: 12, fontWeight: 500, letterSpacing: 0.3 }}>See Feature Concept</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M12 5v14M5 12l7 7 7-7" />
         </svg>
@@ -1233,7 +1235,7 @@ export default function SpacesCaseStudy() {
         <div className="max-w-[1100px] mr-auto ml-[max(24px,calc((100vw-1100px)*0.28))] px-6 lg:px-12 flex gap-16">
           <div className="hidden lg:block w-[180px] flex-shrink-0" />
           <div className="flex-1 min-w-0">
-            <p className="text-[11px] uppercase tracking-[0.2em] font-medium mb-3" style={{ color: '#7c5cff' }}>Feature Concept</p>
+            <p className="text-[11px] uppercase tracking-[0.2em] font-medium mb-3" style={{ color: '#7c5cff' }}>Feature</p>
             <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-4">Connect your Claude</h2>
             <p className="text-[15px] text-gray-500 leading-relaxed mb-8">
               A speculative extension I'd pair with Spaces: visitors link their Claude account so the store's agent greets them with context it already has, style, sizing, tone, without ever seeing their conversations. The flow below walks through the full five-stage journey.
