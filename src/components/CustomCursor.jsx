@@ -13,6 +13,7 @@ export default function CustomCursor() {
   const [cardType, setCardType] = useState(null)
   const [onHero, setOnHero] = useState(false)
   const [hidden, setHidden] = useState(false)
+  const [cursorIcon, setCursorIcon] = useState(null) // 'external' | 'locked' | null
   const pos = useRef({ x: 0, y: 0 })
   const target = useRef({ x: 0, y: 0 })
   const raf = useRef(null)
@@ -38,9 +39,11 @@ export default function CustomCursor() {
       if (card) {
         setOnCard(true)
         setCardType(card.getAttribute('data-card-type'))
+        setCursorIcon(card.getAttribute('data-cursor') || null)
       } else {
         setOnCard(false)
         setCardType(null)
+        setCursorIcon(null)
       }
       // Check if over hero section
       const hero = e.target.closest('#hero')
@@ -81,7 +84,7 @@ export default function CustomCursor() {
       }}
     >
       <div
-        className="rounded-full -translate-x-1/2 -translate-y-1/2"
+        className="rounded-full -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
         style={{
           width: onCard ? '60px' : '12px',
           height: onCard ? '60px' : '12px',
@@ -92,7 +95,20 @@ export default function CustomCursor() {
           transition: 'width 0.4s cubic-bezier(0.23,1,0.32,1), height 0.4s cubic-bezier(0.23,1,0.32,1), background 0.3s ease, border 0.3s ease',
           backdropFilter: onCard ? 'blur(2px)' : 'none',
         }}
-      />
+      >
+        {onCard && cursorIcon === 'external' && (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))' }}>
+            <path d="M7 17L17 7" />
+            <path d="M8 7h9v9" />
+          </svg>
+        )}
+        {onCard && cursorIcon === 'locked' && (
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))' }}>
+            <rect x="5" y="11" width="14" height="9" rx="2" />
+            <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+          </svg>
+        )}
+      </div>
     </div>
   )
 }

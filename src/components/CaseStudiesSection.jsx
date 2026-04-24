@@ -363,17 +363,23 @@ export default function CaseStudiesSection({ onOpenTelus, onOpenViewer, onOpenSo
               { title: '3D World Editor', subtitle: 'Democratizing 3D World Building', tag: 'Design System', challenge: '0→1', industry: 'Immersive', video: '/editor2.mp4' },
               { title: 'Blue Shield & Facebook', subtitle: 'Anti-Bullying App', tag: 'Social Wellness', challenge: '0→1', industry: 'Social', image: '/blue.png', light: true, bordered: true, contain: true },
               { title: 'HealMotion', subtitle: 'Mixed Reality Physical Therapy', tag: 'Mixed Reality / MIT', challenge: 'Ambiguous', industry: 'HealthTech', video: '/heal.mp4' },
-              { title: 'Spacious Places', subtitle: 'VR Music Therapy', tag: 'VR / Meta Quest', challenge: '0→1', industry: 'Immersive', image: '/spacious.gif' },
+              { title: 'Spacious Places', subtitle: 'VR Music Therapy', tag: 'VR / Meta Quest', challenge: '0→1', industry: 'Immersive', image: '/spacious.gif', href: 'https://spaciousplaces.ai/' },
               { title: 'Immersive Museum Experience', subtitle: 'AR Cultural Exploration', tag: 'AR / Gov & Thoughtworks', challenge: 'Ambiguous', industry: 'Immersive', image: '/lincoln.gif' },
-            ].map((project) => (
-              <div
+            ].map((project) => {
+              const WrapperEl = project.href ? 'a' : 'div'
+              return (
+              <WrapperEl
                 key={project.title}
                 id={project.onOpen === 'spaces' ? 'case-spaces' : undefined}
                 data-card
                 data-card-type="project"
+                data-cursor={project.href ? 'external' : project.onOpen ? undefined : 'locked'}
                 onClick={project.onOpen === 'spaces' ? onOpenSpaces : undefined}
-                style={project.onOpen === 'spaces' ? { scrollMarginTop: '80px' } : undefined}
-                className={`group relative rounded-2xl overflow-hidden aspect-[4/3] hover:-translate-y-1 transition-all duration-300 cursor-pointer ${project.bordered ? 'border border-gray-200 bg-white' : 'bg-gradient-to-br from-gray-100 to-gray-50'}`}
+                href={project.href}
+                target={project.href ? '_blank' : undefined}
+                rel={project.href ? 'noopener noreferrer' : undefined}
+                style={{ cursor: 'none', ...(project.onOpen === 'spaces' ? { scrollMarginTop: '80px' } : {}) }}
+                className={`group relative block rounded-2xl overflow-hidden aspect-[4/3] hover:-translate-y-1 transition-all duration-300 ${project.bordered ? 'border border-gray-200 bg-white' : 'bg-gradient-to-br from-gray-100 to-gray-50'}`}
               >
                 {/* Image or placeholder */}
                 {project.video ? (
@@ -385,6 +391,7 @@ export default function CaseStudiesSection({ onOpenTelus, onOpenViewer, onOpenSo
                     <div className="w-16 h-16 rounded-full bg-gray-200/40" />
                   </div>
                 )}
+
                 {/* Bottom label with blur */}
                 <div className="absolute bottom-0 left-0 right-0 overflow-hidden rounded-b-2xl">
                   <div className={`backdrop-blur-[20px] px-5 py-4 ${project.light ? 'bg-white/40 border-t border-black/10' : 'bg-black/10'}`}>
@@ -393,8 +400,9 @@ export default function CaseStudiesSection({ onOpenTelus, onOpenViewer, onOpenSo
                     {project.subtitle && <p className={`text-[12px] mt-0.5 ${project.light ? 'text-gray-600' : 'text-white/70'}`}>{project.subtitle}</p>}
                   </div>
                 </div>
-              </div>
-            ))}
+              </WrapperEl>
+              )
+            })}
           </div>
         </div>
       </div>

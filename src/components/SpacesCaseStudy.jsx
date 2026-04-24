@@ -804,7 +804,7 @@ export default function SpacesCaseStudy() {
                 {/* Animated region highlights */}
                 <div className="absolute inset-0 pointer-events-none">
                   {[
-                    { key: 'left',  left: '0%',   right: '86%',  label: 'Left sidebar — selection',     delay: '0s' },
+                    { key: 'left',  left: '0%',   right: '86%',  label: <>Left sidebar<br/>selection</>,   delay: '0s', stack: true },
                     { key: 'center', left: '14%', right: '21%',  label: 'Central canvas — live preview', delay: '2s' },
                     { key: 'right', left: '79%',  right: '0%',   label: 'Right sidebar — editing',       delay: '4s' },
                   ].map(region => (
@@ -829,13 +829,14 @@ export default function SpacesCaseStudy() {
                         }}
                       >
                         <span
-                          className="px-3 py-1.5 rounded-full text-white font-semibold"
+                          className="px-3 py-1.5 rounded-2xl text-white font-semibold text-center"
                           style={{
                             background: 'linear-gradient(135deg, #7c5cff 0%, #a78bfa 100%)',
                             fontSize: 11,
                             letterSpacing: 0.3,
                             boxShadow: '0 6px 16px rgba(124,92,255,0.4)',
-                            whiteSpace: 'nowrap',
+                            whiteSpace: region.stack ? 'normal' : 'nowrap',
+                            lineHeight: 1.3,
                           }}
                         >
                           {region.label}
