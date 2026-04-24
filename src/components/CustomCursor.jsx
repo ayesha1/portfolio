@@ -5,6 +5,7 @@ const cardColors = {
   images: { bg: 'rgba(60,80,90,0.3)', border: 'rgba(60,80,90,0.35)' },
   vri: { bg: 'rgba(96,103,241,0.35)', border: 'rgba(96,103,241,0.4)' },
   project: { bg: 'rgba(180,140,170,0.35)', border: 'rgba(180,140,170,0.4)' },
+  playground: { bg: 'rgba(200,180,230,0.4)', border: 'rgba(200,180,230,0.45)' },
 }
 
 export default function CustomCursor() {
@@ -41,9 +42,18 @@ export default function CustomCursor() {
         setCardType(card.getAttribute('data-card-type'))
         setCursorIcon(card.getAttribute('data-cursor') || null)
       } else {
-        setOnCard(false)
-        setCardType(null)
-        setCursorIcon(null)
+        // Grow when hovering interactive controls inside the playground experiments
+        const playground = e.target.closest('#playground')
+        const interactive = e.target.closest('button, a, input, select, textarea, label, [role="button"], [data-interactive]')
+        if (playground && interactive) {
+          setOnCard(true)
+          setCardType('playground')
+          setCursorIcon(null)
+        } else {
+          setOnCard(false)
+          setCardType(null)
+          setCursorIcon(null)
+        }
       }
       // Check if over hero section
       const hero = e.target.closest('#hero')
