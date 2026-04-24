@@ -120,6 +120,174 @@ function NewFlowDiagram() {
   )
 }
 
+/* Connect-your-Claude visitor journey — 5 horizontal stages */
+function ClaudeFlowDiagram() {
+  const ACCENT = '#7c5cff'
+
+  const stages = [
+    {
+      n: '01',
+      title: 'Arrival',
+      desc: 'Visitor lands on the store\'s Space. The 3D environment loads and the brand\'s agent greets them on video.',
+      surface: 'visitor',
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="5" width="18" height="12" rx="2" />
+          <circle cx="12" cy="11" r="2.5" />
+          <path d="M8 20h8" />
+          <path d="M12 17v3" />
+        </svg>
+      ),
+    },
+    {
+      n: '02',
+      title: 'The Pitch',
+      desc: 'A soft side-panel offers "Connect your Claude." Declining is one click. No dark patterns.',
+      surface: 'visitor',
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="4" width="14" height="16" rx="2" />
+          <path d="M17 9h4v6h-4" />
+          <path d="M7 9h6M7 13h4" />
+        </svg>
+      ),
+    },
+    {
+      n: '03',
+      title: 'Handoff',
+      desc: 'Desktop shows a QR that opens Claude. The approval screen lists exactly what Napster receives — style, sizing, tone. Never chat history.',
+      surface: 'claude',
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+          <path d="M14 14h3v3h-3zM20 14v3M17 20h4M14 20v1" />
+        </svg>
+      ),
+    },
+    {
+      n: '04',
+      title: 'Personalized Return',
+      desc: 'Back in the Space, the environment shifts to match their aesthetic. The agent opens with a preference-aware line.',
+      surface: 'visitor',
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 3l2.4 5 5.6.8-4 3.9.9 5.6L12 15.8 7.1 18.3l.9-5.6-4-3.9 5.6-.8z" />
+        </svg>
+      ),
+    },
+    {
+      n: '05',
+      title: 'Ongoing Trust',
+      desc: 'A small Claude indicator lives in the HUD. Tap it to see what\'s being used, or disconnect in one tap.',
+      surface: 'visitor',
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="5" y="11" width="14" height="9" rx="2" />
+          <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+          <path d="M12 14.5v3" />
+        </svg>
+      ),
+    },
+  ]
+
+  return (
+    <div
+      className="rounded-2xl border border-gray-200 p-6 md:p-8 mb-8"
+      style={{ background: 'linear-gradient(135deg, #fafbff 0%, #f7f4ff 100%)' }}
+    >
+      <div className="flex items-baseline gap-3 mb-6">
+        <span className="text-[11px] uppercase tracking-[0.25em] font-bold" style={{ color: ACCENT }}>
+          Speculative feature
+        </span>
+        <span className="text-[12px] text-gray-400">Connect-your-Claude visitor journey</span>
+      </div>
+
+      <div className="flex items-stretch gap-3 flex-wrap md:flex-nowrap">
+        {stages.map((s, i) => (
+          <div key={s.n} className="flex items-stretch gap-3 flex-1 min-w-[180px]">
+            {/* Stage card */}
+            <div
+              className="flex-1 rounded-xl bg-white p-4 flex flex-col"
+              style={{
+                border: '1px solid rgba(124,92,255,0.12)',
+                boxShadow: '0 4px 14px rgba(40,20,80,0.04)',
+              }}
+            >
+              <div className="flex items-center justify-between mb-3">
+                <span
+                  className="inline-flex items-center justify-center"
+                  style={{
+                    width: 28, height: 28, borderRadius: 999,
+                    background: 'rgba(124,92,255,0.1)',
+                    color: ACCENT,
+                    fontSize: 11, fontWeight: 700, letterSpacing: 0.3,
+                  }}
+                >
+                  {s.n}
+                </span>
+                <span
+                  className="text-[9.5px] uppercase tracking-[0.15em] font-semibold px-2 py-0.5 rounded-full"
+                  style={
+                    s.surface === 'claude'
+                      ? { background: 'rgba(15,23,42,0.08)', color: '#334155' }
+                      : { background: 'rgba(124,92,255,0.08)', color: ACCENT }
+                  }
+                >
+                  {s.surface === 'claude' ? 'Claude' : 'Visitor'}
+                </span>
+              </div>
+
+              <div className="mb-2" style={{ color: ACCENT, opacity: 0.85 }}>
+                {s.icon}
+              </div>
+
+              <p className="text-[13px] font-semibold text-gray-900 mb-1.5">{s.title}</p>
+              <p className="text-[11.5px] text-gray-500 leading-relaxed">{s.desc}</p>
+            </div>
+
+            {/* Arrow between cards */}
+            {i < stages.length - 1 && (
+              <div className="hidden md:flex flex-shrink-0 items-center">
+                <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+                  <path d="M1 7h14M11 2l4 5-4 5" stroke={ACCENT} strokeOpacity="0.5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Constraint callouts */}
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
+        {[
+          { label: 'Granular consent', desc: 'Only named slices — style, sizing, tone. Never full chat history.' },
+          { label: 'One-tap disconnect', desc: 'Connection can be revoked from the HUD at any time, mid-session.' },
+          { label: 'Two surfaces, one flow', desc: 'Napster stays visitor-facing. Claude handles approval in its own app.' },
+        ].map(c => (
+          <div key={c.label} className="p-3 rounded-lg" style={{ background: 'rgba(124,92,255,0.04)', border: '1px solid rgba(124,92,255,0.1)' }}>
+            <p className="text-[11.5px] font-semibold text-gray-800 mb-1">{c.label}</p>
+            <p className="text-[11px] text-gray-500 leading-relaxed">{c.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Legend */}
+      <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-gray-500 pt-4 border-t border-gray-200/60">
+        <span className="flex items-center gap-1.5">
+          <span className="w-2.5 h-2.5 rounded-full" style={{ background: 'rgba(124,92,255,0.6)' }} />
+          Visitor surface (the 3D Space)
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-slate-400" />
+          Claude surface (approval + disconnect)
+        </span>
+      </div>
+    </div>
+  )
+}
+
 /* Current user flow — Start → Auto / Advanced branches */
 function CurrentFlowDiagram() {
   return (
@@ -673,15 +841,16 @@ export default function SpacesCaseStudy() {
             <span className="text-[13px] uppercase tracking-[0.3em] text-white/80 font-semibold">Spaces</span>
           </div>
           <h1 className="font-serif text-4xl lg:text-6xl text-white leading-tight max-w-[820px] mb-6" style={{ animation: 'heroFade 0.8s ease-out 0.4s both' }}>
-            Turning Any Brand Into a Spatial Experience
+            <span style={{ display: 'block' }}>Transforming Retail as</span>
+            <span style={{ display: 'block' }}>Intelligent & Immersive Experiences.</span>
           </h1>
           <p className="text-[17px] text-white/75 max-w-[580px] leading-relaxed mb-10" style={{ animation: 'heroFade 0.8s ease-out 0.6s both' }}>
             A concept prototype that generates a browsable brand world from a single URL, shrinking weeks of 3D production into seconds.
           </p>
           <div className="flex gap-6 text-[13px] text-white/55 flex-wrap justify-center" style={{ animation: 'heroFade 0.8s ease-out 0.8s both' }}>
-            <div><span className="uppercase tracking-wider text-white/35 mr-2">Role</span>Concept & Design Lead</div>
-            <div><span className="uppercase tracking-wider text-white/35 mr-2">Stack</span>HTML · CSS · Three.js</div>
-            <div><span className="uppercase tracking-wider text-white/35 mr-2">Year</span>2026</div>
+            <div><span className="uppercase tracking-wider text-white/35 mr-2">Role</span>Design Lead</div>
+            <div><span className="uppercase tracking-wider text-white/35 mr-2">Year</span>2025</div>
+            <div><span className="uppercase tracking-wider text-white/35 mr-2">Team</span>CTO, Director & Designer (me)</div>
           </div>
         </div>
 
@@ -728,7 +897,7 @@ export default function SpacesCaseStudy() {
             <p className="text-[11px] uppercase tracking-[0.2em] font-medium mb-3" style={{ color: PURPLE }}>Background</p>
             <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">A Spatial Future for Napster</h2>
             <p className="text-[15px] text-gray-500 leading-relaxed mb-6">
-              While working on Viewer, I kept running into the same ceiling. Every new brand world was a bespoke, weeks-long production that required 3D artists, engineers, and a full design review. That model made large activations possible but shut out the long tail of smaller brands, campaigns, and creators.
+              Imagine shopping with a personal assistant by your side who knows you and your brand inside and out, surfacing the right product at the right moment. Now imagine any business being able to stand one up for themselves from a single URL and a single click. Napster Spaces is that idea, an AI agent embedded in a generated brand world, spun up on demand from the web presence a business already has.
             </p>
             <p className="text-[15px] text-gray-500 leading-relaxed mb-8">
               Napster Spaces is my answer to that bottleneck, a speculative prototype that generates a spatial scene directly from a brand's existing web presence. Paste a URL, watch the loading state stitch a space together, and drop into a lightweight, explorable world themed around that brand.
@@ -756,7 +925,7 @@ export default function SpacesCaseStudy() {
           {/* Problem */}
           <ContentSection id="problem">
             <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-medium mb-3">Problem</p>
-            <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">Bad UX, Inconsistent Visuals, No Coherence</h2>
+            <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">"Bad" UX. Visual Refresh. Unnecessarily Complicated.</h2>
             <p className="text-[15px] text-gray-500 leading-relaxed mb-6">
               Without a designer on the original team, Spaces shipped with bad UX, weak visual design, and no sense of coherence across views. Core flows ignored basic heuristics, the interface had no visual system, and every screen felt like it belonged to a different product.
             </p>
@@ -1057,6 +1226,26 @@ export default function SpacesCaseStudy() {
           scroll-snap-type: y proximity;
         }
       `}</style>
+
+      {/* Speculative feature: Connect your Claude */}
+      <section className="w-full pt-24 pb-8" id="claude-flow" style={{ scrollMarginTop: 80 }}>
+        {/* Header text aligned with the rest of the case study's body column */}
+        <div className="max-w-[1100px] mr-auto ml-[max(24px,calc((100vw-1100px)*0.28))] px-6 lg:px-12 flex gap-16">
+          <div className="hidden lg:block w-[180px] flex-shrink-0" />
+          <div className="flex-1 min-w-0">
+            <p className="text-[11px] uppercase tracking-[0.2em] font-medium mb-3" style={{ color: '#7c5cff' }}>Feature Concept</p>
+            <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-4">Connect your Claude</h2>
+            <p className="text-[15px] text-gray-500 leading-relaxed mb-8">
+              A speculative extension I'd pair with Spaces: visitors link their Claude account so the store's agent greets them with context it already has, style, sizing, tone, without ever seeing their conversations. The flow below walks through the full five-stage journey.
+            </p>
+          </div>
+        </div>
+
+        {/* Flow diagram gets the wider, centered treatment */}
+        <div className="mx-auto px-6 lg:px-10" style={{ maxWidth: 1400 }}>
+          <ClaudeFlowDiagram />
+        </div>
+      </section>
 
       {/* Continue the content flow below the full-bleed prototype */}
       <div className="max-w-[1100px] mr-auto ml-[max(24px,calc((100vw-1100px)*0.28))] px-6 lg:px-12 pt-16 pb-32 flex gap-16">

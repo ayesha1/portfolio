@@ -465,6 +465,11 @@ export default function ViewerCaseStudy() {
               <span className="text-white/40 text-[10px] uppercase tracking-wider block mb-0.5">Platform</span>
               <span className="text-white/80">Web, Phone & VR</span>
             </div>
+            <div className="w-[1px] bg-white/15 self-stretch" />
+            <div>
+              <span className="text-white/40 text-[10px] uppercase tracking-wider block mb-0.5">Year</span>
+              <span className="text-white/80">2025</span>
+            </div>
           </div>
         </div>
 

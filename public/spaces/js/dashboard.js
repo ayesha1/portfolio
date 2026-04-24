@@ -48,13 +48,36 @@ function initTabs() {
     switcher.style.setProperty('--tab-pill-width', `${rect.width}px`);
   };
 
+  const applyMode = (mode) => {
+    // mode: 'agent-only' | 'hybrid' | '3d-env'
+    const canvas = document.getElementById('three-canvas');
+    const avatar = document.getElementById('avatar-toggle');
+    const bubble = document.getElementById('chat-bubble');
+    const body = document.body;
+
+    body.classList.remove('mode-agent-only', 'mode-hybrid', 'mode-3d-env');
+    body.classList.add(`mode-${mode}`);
+
+    const showCanvas = mode !== 'agent-only';
+    const showAvatar = mode !== '3d-env';
+
+    if (canvas) canvas.style.opacity = showCanvas ? '' : '0';
+    if (avatar) avatar.style.display = showAvatar ? '' : 'none';
+    if (bubble) bubble.style.display = showAvatar ? '' : 'none';
+  };
+
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       tabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       updatePill();
+      applyMode(tab.dataset.tab);
     });
   });
+
+  // Apply initial mode based on the currently-active tab
+  const initial = switcher.querySelector('.tab-btn.active');
+  if (initial) applyMode(initial.dataset.tab);
 
   // Position the pill on first paint, and keep it aligned on resize / font load
   requestAnimationFrame(updatePill);
