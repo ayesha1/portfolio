@@ -171,11 +171,11 @@ export default function HeroSection() {
           <div
             className="absolute inset-0 backdrop-blur-[14px] pointer-events-none transition-opacity duration-[1400ms] ease-out"
             style={{
-              maskImage: 'radial-gradient(ellipse 90% 85% at center, black 5%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,0.35) 60%, transparent 95%)',
-              WebkitMaskImage: 'radial-gradient(ellipse 90% 85% at center, black 5%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,0.35) 60%, transparent 95%)',
-              margin: '-80px',
-              padding: '80px',
-              borderRadius: '120px',
+              maskImage: 'radial-gradient(ellipse farthest-side at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 12%, rgba(0,0,0,0.75) 28%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.28) 60%, rgba(0,0,0,0.12) 75%, rgba(0,0,0,0.04) 88%, transparent 100%)',
+              WebkitMaskImage: 'radial-gradient(ellipse farthest-side at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 12%, rgba(0,0,0,0.75) 28%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.28) 60%, rgba(0,0,0,0.12) 75%, rgba(0,0,0,0.04) 88%, transparent 100%)',
+              margin: '-160px',
+              padding: '160px',
+              borderRadius: '240px',
               opacity: showBlur ? 1 : 0,
             }}
           />
