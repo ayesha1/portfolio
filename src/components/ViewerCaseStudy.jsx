@@ -3,6 +3,53 @@ import { useNavigate } from 'react-router-dom'
 import ViewerPrototype, { ControlRail, CartButton, Hotspot } from './ViewerPrototype'
 
 /* Auto-advancing brand-partnerships slideshow */
+/* Hover-to-expand brand videos row (same pattern as the AI Experiment homepage demo) */
+function BrandVideosRow() {
+  const videos = [
+    '/slideshow/videos/bondi-video.mp4',
+    '/slideshow/videos/crate_barel.mp4',
+    '/slideshow/videos/swavorski.mp4',
+  ]
+  const [hovered, setHovered] = useState(null)
+
+  return (
+    <div
+      className="mb-6 flex gap-3"
+      style={{ height: 360 }}
+      onMouseLeave={() => setHovered(null)}
+    >
+      {videos.map((src, i) => {
+        const isHovered = hovered === i
+        const hasHover = hovered !== null
+        const flexVal = isHovered ? 4 : hasHover ? 0.6 : 1
+        return (
+          <div
+            key={src}
+            className="relative overflow-hidden rounded-xl border border-gray-100 bg-gray-50"
+            style={{
+              flex: flexVal,
+              transition: 'flex 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
+              cursor: 'pointer',
+            }}
+            onMouseEnter={() => setHovered(i)}
+          >
+            <video
+              src={src}
+              autoPlay
+              loop
+              muted
+              playsInline
+              disablePictureInPicture
+              controls={false}
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            />
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 function BrandPartnershipsSlideshow() {
   const slides = [
     '/slideshow/slide1.png',
@@ -11,7 +58,6 @@ function BrandPartnershipsSlideshow() {
     '/slideshow/slide4.png',
     '/slideshow/slide5.png',
     '/slideshow/slide6.png',
-    '/slideshow/slide7.avif',
     '/slideshow/slide8.avif',
     '/slideshow/slide9.avif',
   ]
@@ -561,6 +607,15 @@ export default function ViewerCaseStudy() {
               The initial directive requested a visual refresh with glassmorphism rebranding. However, research revealed deeper issues. The platform created user confusion and lacked social foundations.
             </p>
 
+            {/* Framing line for the brand videos */}
+            <p className="text-[14px] text-gray-600 leading-relaxed mb-4">
+              Our default Viewer aesthetic didn't carry the weight our enterprise projects demanded. We needed a system that could tie multiple brand campaigns and launches into a single, cohesive template, not a reskin for every activation.
+            </p>
+
+            {/* Three brand worlds in motion — hover expands one, others shrink */}
+            <BrandVideosRow />
+
+
             {/* Slideshow of brand partnership worlds */}
             <div className="mb-8">
               <BrandPartnershipsSlideshow />
@@ -774,7 +829,53 @@ export default function ViewerCaseStudy() {
                 { title: 'Portrait mode responsiveness', desc: 'Added portrait support. Users hold phones upright 95% of the time, reducing onboarding friction' },
                 { title: 'Visual noise reduction', desc: 'Reorganized controls into collapsible sidebar groupings for immersive focus' },
                 { title: 'Progressive onboarding', desc: 'Default-open menu for first-time users; collapses for returning users' },
-                { title: 'Interactive hotspots', desc: 'Redesigned from static squares to animated pulsing circles to guide attention naturally' },
+                {
+                  title: 'Interactive hotspots',
+                  desc: 'Redesigned from static squares to animated pulsing circles to guide attention naturally',
+                  extra: (
+                    <div className="mt-6 pt-6 border-t border-gray-100">
+                      <p className="text-[11px] uppercase tracking-[0.15em] text-[#4b286d]/70 font-semibold mb-4">Before & After</p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Before — cropped to match the after's aspect */}
+                        <div>
+                          <p className="text-[11px] uppercase tracking-[0.15em] text-gray-400 font-semibold mb-2">Before</p>
+                          <div
+                            className="relative rounded-xl overflow-hidden border border-gray-100 bg-gray-50"
+                            style={{ aspectRatio: '4 / 5' }}
+                          >
+                            <img
+                              src="/hotspot-old.png"
+                              alt="Interactive hotspots — before"
+                              className="absolute inset-0 w-full h-full"
+                              style={{ objectFit: 'cover', objectPosition: 'center' }}
+                            />
+                          </div>
+                        </div>
+                        {/* After — pulsing hotspot overlay slightly above center */}
+                        <div>
+                          <p className="text-[11px] uppercase tracking-[0.15em] text-[#4b286d]/70 font-semibold mb-2">After</p>
+                          <div
+                            className="relative rounded-xl overflow-hidden border border-gray-100 bg-gray-50"
+                            style={{ aspectRatio: '4 / 5' }}
+                          >
+                            <img
+                              src="/hotspot-new.png"
+                              alt="Interactive hotspots — after"
+                              className="absolute inset-0 w-full h-full"
+                              style={{ objectFit: 'cover', objectPosition: 'center' }}
+                            />
+                            <div
+                              className="absolute pointer-events-none"
+                              style={{ top: '42%', left: '50%', transform: 'translate(-50%, -50%)' }}
+                            >
+                              <Hotspot top="0" left="0" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ),
+                },
                 { title: 'Settings redesign', desc: 'Table-style layout replacing tabs, reducing navigation from 3 clicks to 1' },
                 {
                   title: 'Chat & video integration',
