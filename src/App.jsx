@@ -14,7 +14,7 @@ import SonaphiCaseStudy from './components/SonaphiCaseStudy'
 import SpacesCaseStudy from './components/SpacesCaseStudy'
 import LiquidGlassFilter from './components/LiquidGlassFilter'
 import CustomCursor from './components/CustomCursor'
-import logoImg from './assets/hero.png'
+const logoImg = '/newlogo.png'
 
 function FloatingLogo() {
   const [show, setShow] = useState(false)
@@ -39,7 +39,7 @@ function FloatingLogo() {
         pointerEvents: show ? 'auto' : 'none',
       }}
     >
-      <img src={logoImg} alt="Logo" className="w-14 h-14 object-contain opacity-70" />
+      <img src={logoImg} alt="Logo" className="w-14 h-14 object-cover rounded-full" />
     </a>
   )
 }

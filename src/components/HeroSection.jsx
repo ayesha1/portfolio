@@ -112,11 +112,13 @@ function GlassRipple() {
 
 export default function HeroSection() {
   const [show, setShow] = useState(false)
+  const [showBlur, setShowBlur] = useState(false)
   const [showScroll, setShowScroll] = useState(false)
 
   useEffect(() => {
+    const blurTimer = setTimeout(() => setShowBlur(true), 150)
     const timer = setTimeout(() => setShow(true), 800)
-    return () => clearTimeout(timer)
+    return () => { clearTimeout(blurTimer); clearTimeout(timer) }
   }, [])
 
   useEffect(() => {
@@ -138,7 +140,7 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <section id="hero" className="min-h-screen relative flex items-center justify-center px-6 md:px-16 pt-24 pb-16 overflow-hidden">
+    <section id="hero" className="min-h-screen relative flex items-start justify-center px-6 md:px-16 pt-48 pb-16 overflow-hidden">
       {/* Video background — 3D glass flower */}
       <div className="absolute inset-0 flex items-center justify-center">
         <video
@@ -148,7 +150,7 @@ export default function HeroSection() {
           playsInline
           className="w-full h-full object-cover"
         >
-          <source src="/hero-flower.mp4" type="video/mp4" />
+          <source src="/hero-bg.mp4" type="video/mp4" />
         </video>
         {/* Bottom fade — blends video into the section below */}
         <div
@@ -162,32 +164,39 @@ export default function HeroSection() {
       {/* Glass ripple effect */}
       <GlassRipple />
 
-      {/* Heading — positioned bottom-right, fades in after delay */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto flex items-end justify-end min-h-[60vh] pr-4 md:pr-12">
-        <div
-          className="relative transition-all duration-1000 ease-out"
-          style={{
-            opacity: show ? 1 : 0,
-            transform: show ? 'translateY(0)' : 'translateY(20px)',
-          }}
-        >
-          {/* Feathered blur layer behind the text */}
+      {/* Heading — positioned bottom-right */}
+      <div className="relative z-10 w-full max-w-6xl mx-auto flex items-end justify-end min-h-[0] pr-4 md:pr-12">
+        <div className="relative">
+          {/* Softly feathered blur layer — fades in earlier than the text */}
           <div
-            className="absolute inset-0 backdrop-blur-[4px] pointer-events-none"
+            className="absolute inset-0 backdrop-blur-[14px] pointer-events-none transition-opacity duration-[1400ms] ease-out"
             style={{
-              maskImage: 'radial-gradient(ellipse 100% 100% at center, black 30%, transparent 75%)',
-              WebkitMaskImage: 'radial-gradient(ellipse 100% 100% at center, black 30%, transparent 75%)',
-              margin: '-30px',
-              padding: '30px',
-              borderRadius: '40px',
+              maskImage: 'radial-gradient(ellipse 90% 85% at center, black 5%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,0.35) 60%, transparent 95%)',
+              WebkitMaskImage: 'radial-gradient(ellipse 90% 85% at center, black 5%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,0.35) 60%, transparent 95%)',
+              margin: '-80px',
+              padding: '80px',
+              borderRadius: '120px',
+              opacity: showBlur ? 1 : 0,
             }}
           />
-          <h1 className="relative font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] leading-[1.15] text-white tracking-tight text-right max-w-[520px] drop-shadow-[0_2px_15px_rgba(0,0,0,0.06)]">
-            I'm Ayesha, a product
-            <br />
-            designer who{' '}
-            <em className="italic">builds.</em>
-          </h1>
+          {/* Text fades in after the blur */}
+          <div
+            className="relative transition-all duration-1000 ease-out"
+            style={{
+              opacity: show ? 1 : 0,
+              transform: show ? 'translateY(0)' : 'translateY(20px)',
+            }}
+          >
+            <h1
+              className="relative font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] leading-[1.15] text-white tracking-tight text-right max-w-[520px]"
+              style={{ textShadow: '0 2px 16px rgba(0,0,0,0.22), 0 1px 3px rgba(0,0,0,0.18)' }}
+            >
+              I'm Ayesha, a product
+              <br />
+              designer who{' '}
+              <em className="italic">builds.</em>
+            </h1>
+          </div>
         </div>
       </div>
       {/* Scroll down indicator */}

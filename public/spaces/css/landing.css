@@ -118,6 +118,8 @@
 
 .logo-icon {
   object-fit: contain;
+  opacity: 1;
+  filter: none;
 }
 
 .logo-text {
