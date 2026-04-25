@@ -393,21 +393,68 @@ export default function TelusCaseStudy() {
 
           <ContentSection id="background">
             <p className="text-[11px] uppercase tracking-[0.2em] text-[#4b286d] font-medium mb-3">Background</p>
+
+            {/* Telus x Thoughtworks */}
+            <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">Telus x Thoughtworks</h2>
+            <p className="text-[15px] text-gray-500 leading-relaxed mb-6">
+              TELUS, one of Canada's fastest-growing telecommunications companies, wanted to increase the speed and responsiveness of its enterprise. They partnered with Thoughtworks for a new way of working built on a digital platform strategy and value-driven portfolio capabilities. I was placed as a designer on the chatbot team to bring the speed and impact of a startup to a large enterprise group.
+            </p>
+
+            <div className="rounded-2xl overflow-hidden border border-gray-100 bg-black mb-4">
+              <video
+                src="/telus-tw.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-auto block"
+              />
+            </div>
+
+            {/* Hover-to-reveal Thoughtworks case study link */}
+            <div className="relative group mb-12">
+              <a
+                href="https://www.thoughtworks.com/clients/telus-digital"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-4 rounded-xl bg-[#f4f9f2] cursor-pointer no-underline"
+              >
+                <span className="text-[20px]">🔗</span>
+                <p className="text-[14px] text-gray-600">
+                  Read how Thoughtworks worked with TELUS to lift customer advocacy and app store ratings <span className="text-[#4b286d] font-medium">(hover to preview, click to open)</span>
+                </p>
+              </a>
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-[420px] opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-white p-4">
+                  <div className="text-[11px] uppercase tracking-[0.15em] text-gray-400 font-semibold mb-1">thoughtworks.com</div>
+                  <p className="text-[14px] font-semibold text-gray-900 mb-1">TELUS Digital · Client story</p>
+                  <p className="text-[12px] text-gray-500 leading-relaxed">
+                    Read how Thoughtworks partnered with TELUS to ship the chatbot, increase customer advocacy, and raise app store ratings.
+                  </p>
+                </div>
+                <div className="w-4 h-4 bg-white border-b border-r border-gray-200 rotate-45 absolute -bottom-2 left-1/2 -translate-x-1/2" />
+              </div>
+            </div>
+
+            {/* The Challenge */}
             <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">The Challenge</h2>
             <p className="text-[15px] text-gray-500 leading-relaxed mb-6">
               TELUS, a major Canadian telecommunications company, struggled with a chatbot that customers found unhelpful. The live chat support team was overwhelmed, with 90% of chatbot conversations being escalated to human agents.
             </p>
-            <p className="text-[15px] text-gray-500 leading-relaxed mb-8">
+            <p className="text-[15px] text-gray-500 leading-relaxed mb-6">
               The company partnered with Google Cloud to develop an AI-powered solution but lacked design expertise after losing their sole visual designer.
             </p>
+            <p className="text-[15px] text-gray-500 leading-relaxed mb-8">
+              That's where I stepped in, helping TELUS and Google bridge the gap, improving the chatbot's user experience and visual design, and making the integration with Google Cloud's platform feel natural and easy.
+            </p>
             {/* Stats */}
-            <div className="flex gap-10 p-6 rounded-2xl bg-gray-50">
+            <div className="flex p-6 rounded-2xl bg-gray-50">
               {[
                 { value: '90%', label: 'Escalation rate', color: '#ef4444' },
                 { value: '2 hrs', label: 'Avg wait time', color: '#f59e0b' },
                 { value: '0', label: 'Designers on team', color: '#6b7280' },
               ].map(s => (
-                <div key={s.label}>
+                <div key={s.label} className="flex-1 text-center">
                   <p className="text-[28px] font-bold" style={{ color: s.color }}>{s.value}</p>
                   <p className="text-[12px] text-gray-400 mt-1">{s.label}</p>
                 </div>
