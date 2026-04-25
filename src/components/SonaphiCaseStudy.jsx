@@ -452,11 +452,33 @@ export default function SonaphiCaseStudy() {
               </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-gray-50">
+            <div className="p-6 rounded-2xl bg-gray-50 mb-10">
               <p className="text-[11px] uppercase tracking-[0.15em] text-gray-400 font-semibold mb-2">What came next</p>
               <p className="text-[14px] text-gray-600 leading-relaxed">
                 The redesigned app moved into HIPAA compliance review and App Store submission, with the increased budget earmarked for a broader participant recruitment campaign and continued AI model training.
               </p>
+            </div>
+
+            {/* Press feature — hover-to-preview link */}
+            <div className="relative group">
+              <a
+                href="https://emag.directindustry.com/2021/07/28/voice-based-technology-a-promising-future-sonaphi-voicesense-alexa-amazon-artificial-intelligence-machine-learning/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-4 rounded-xl cursor-pointer no-underline"
+                style={{ background: 'rgba(95,105,239,0.08)', border: '1px solid rgba(95,105,239,0.18)' }}
+              >
+                <span className="text-[20px]">📰</span>
+                <p className="text-[14px] text-gray-600">
+                  Sonaphi was featured in industry press alongside the broader rise of voice-based AI <span className="font-medium" style={{ color: '#5f69ef' }}>(hover to preview, click to open)</span>
+                </p>
+              </a>
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-[260px] opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-white">
+                  <img src="/sonaphi-press.jpg" alt="Sonaphi press feature" className="w-full object-cover" />
+                </div>
+                <div className="w-4 h-4 bg-white border-b border-r border-gray-200 rotate-45 absolute -bottom-2 left-1/2 -translate-x-1/2" />
+              </div>
             </div>
           </ContentSection>
 

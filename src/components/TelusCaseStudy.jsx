@@ -410,31 +410,7 @@ export default function TelusCaseStudy() {
                 className="w-full h-auto block"
               />
             </div>
-
-            {/* Hover-to-reveal Thoughtworks case study link */}
-            <div className="relative group mb-12">
-              <a
-                href="https://www.thoughtworks.com/clients/telus-digital"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 p-4 rounded-xl bg-[#f4f9f2] cursor-pointer no-underline"
-              >
-                <span className="text-[20px]">🔗</span>
-                <p className="text-[14px] text-gray-600">
-                  Read how Thoughtworks worked with TELUS to lift customer advocacy and app store ratings <span className="text-[#4b286d] font-medium">(hover to preview, click to open)</span>
-                </p>
-              </a>
-              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-[420px] opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
-                <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-white p-4">
-                  <div className="text-[11px] uppercase tracking-[0.15em] text-gray-400 font-semibold mb-1">thoughtworks.com</div>
-                  <p className="text-[14px] font-semibold text-gray-900 mb-1">TELUS Digital · Client story</p>
-                  <p className="text-[12px] text-gray-500 leading-relaxed">
-                    Read how Thoughtworks partnered with TELUS to ship the chatbot, increase customer advocacy, and raise app store ratings.
-                  </p>
-                </div>
-                <div className="w-4 h-4 bg-white border-b border-r border-gray-200 rotate-45 absolute -bottom-2 left-1/2 -translate-x-1/2" />
-              </div>
-            </div>
+            <div className="mb-12" />
 
             {/* The Challenge */}
             <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">The Challenge</h2>
@@ -882,7 +858,7 @@ export default function TelusCaseStudy() {
               </div>
             </div>
 
-            <div className="relative group">
+            <div className="relative group mb-3">
               <div className="flex items-center gap-3 p-4 rounded-xl bg-yellow-50 cursor-pointer">
                 <span className="text-[20px]">⭐</span>
                 <p className="text-[14px] text-gray-600">Google Cloud featured the chatbot in their official case study <span className="text-[#4b286d] font-medium">(hover to see)</span></p>
@@ -891,6 +867,28 @@ export default function TelusCaseStudy() {
               <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-[400px] opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
                 <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-white">
                   <img src="/telus-google-result.png" alt="Google Cloud case study feature" className="w-full object-cover" />
+                </div>
+                <div className="w-4 h-4 bg-white border-b border-r border-gray-200 rotate-45 absolute -bottom-2 left-1/2 -translate-x-1/2" />
+              </div>
+            </div>
+
+            {/* Hover-to-reveal Thoughtworks case study link */}
+            <div className="relative group">
+              <a
+                href="https://www.thoughtworks.com/clients/telus-digital"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-4 rounded-xl bg-[#f4f9f2] cursor-pointer no-underline"
+              >
+                <span className="text-[20px]">🔗</span>
+                <p className="text-[14px] text-gray-600">
+                  Read how Thoughtworks worked with TELUS to lift customer advocacy and app store ratings <span className="text-[#4b286d] font-medium">(hover to preview, click to open)</span>
+                </p>
+              </a>
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-[260px] opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-white p-4">
+                  <div className="text-[11px] uppercase tracking-[0.15em] text-gray-400 font-semibold mb-1">thoughtworks.com</div>
+                  <p className="text-[14px] font-semibold text-gray-900 mb-1">TELUS Digital · Client story</p>
                 </div>
                 <div className="w-4 h-4 bg-white border-b border-r border-gray-200 rotate-45 absolute -bottom-2 left-1/2 -translate-x-1/2" />
               </div>
