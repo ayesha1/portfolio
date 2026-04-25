@@ -85,22 +85,51 @@ export default function SonaphiCaseStudy() {
           background: 'linear-gradient(135deg, #2a1a5e 0%, #3b4465 40%, #5f69ef 80%, #8685f1 100%)',
         }}
       >
+        {/* Background voice video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ opacity: 0.55, mixBlendMode: 'screen' }}
+        >
+          <source src="/sonaphi-voice.mp4" type="video/mp4" />
+        </video>
+        {/* Soft purple wash to keep the text legible */}
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(42,26,94,0.45) 0%, rgba(95,105,239,0.35) 60%, rgba(134,133,241,0.4) 100%)' }} />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
 
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8">
-          <div className="flex items-center gap-3 mb-6" style={{ animation: 'heroFade 0.8s ease-out 0.2s both' }}>
-            <img src="/sonaphi-logo.png" alt="Sonaphi" className="h-8 object-contain brightness-0 invert opacity-90" />
-          </div>
-          <h1 className="font-serif text-4xl lg:text-6xl text-white leading-tight max-w-[780px] mb-6" style={{ animation: 'heroFade 0.8s ease-out 0.4s both' }}>
-            Research App that Powers AI COVID-19 Testing
-          </h1>
-          <p className="text-[17px] text-white/75 max-w-[560px] leading-relaxed mb-10" style={{ animation: 'heroFade 0.8s ease-out 0.6s both' }}>
-            Redesigning a clinical voice-research app to fuel an AI model that detects COVID-19 from the sound of a cough.
-          </p>
-          <div className="flex gap-6 text-[13px] text-white/60 flex-wrap justify-center" style={{ animation: 'heroFade 0.8s ease-out 0.8s both' }}>
-            <div><span className="uppercase tracking-wider text-white/40 mr-2">Role</span>Founding UX Designer</div>
-            <div><span className="uppercase tracking-wider text-white/40 mr-2">Duration</span>7 weeks</div>
-            <div><span className="uppercase tracking-wider text-white/40 mr-2">Year</span>2021</div>
+          <div className="relative">
+            {/* Feathered backdrop blur halo behind the text */}
+            <div
+              className="absolute inset-0 backdrop-blur-[10px] pointer-events-none"
+              style={{
+                maskImage: 'radial-gradient(ellipse farthest-side at center, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.7) 18%, rgba(0,0,0,0.5) 38%, rgba(0,0,0,0.28) 58%, rgba(0,0,0,0.12) 75%, rgba(0,0,0,0.04) 88%, transparent 100%)',
+                WebkitMaskImage: 'radial-gradient(ellipse farthest-side at center, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.7) 18%, rgba(0,0,0,0.5) 38%, rgba(0,0,0,0.28) 58%, rgba(0,0,0,0.12) 75%, rgba(0,0,0,0.04) 88%, transparent 100%)',
+                margin: '-160px',
+                padding: '160px',
+                borderRadius: '240px',
+              }}
+            />
+
+            <div className="relative">
+              <div className="flex items-center justify-center gap-3 mb-6" style={{ animation: 'heroFade 0.8s ease-out 0.2s both' }}>
+                <img src="/sonaphi-logo.png" alt="Sonaphi" className="h-8 object-contain brightness-0 invert opacity-90" />
+              </div>
+              <h1 className="font-serif text-4xl lg:text-6xl text-white leading-tight max-w-[780px] mb-6" style={{ animation: 'heroFade 0.8s ease-out 0.4s both' }}>
+                Research App that Powers AI COVID-19 Testing
+              </h1>
+              <p className="text-[17px] text-white/75 max-w-[560px] leading-relaxed mb-10 mx-auto" style={{ animation: 'heroFade 0.8s ease-out 0.6s both' }}>
+                Redesigning a clinical voice-research app to fuel an AI model that detects COVID-19 from the sound of a cough.
+              </p>
+              <div className="flex gap-6 text-[13px] text-white/60 flex-wrap justify-center" style={{ animation: 'heroFade 0.8s ease-out 0.8s both' }}>
+                <div><span className="uppercase tracking-wider text-white/40 mr-2">Role</span>Founding UX Designer</div>
+                <div><span className="uppercase tracking-wider text-white/40 mr-2">Duration</span>7 weeks</div>
+                <div><span className="uppercase tracking-wider text-white/40 mr-2">Year</span>2021</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -144,8 +173,45 @@ export default function SonaphiCaseStudy() {
             <p className="text-[11px] uppercase tracking-[0.2em] text-[#5f69ef] font-medium mb-3">Background</p>
             <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">Reopen the World with AI</h2>
             <p className="text-[15px] text-gray-500 leading-relaxed mb-6">
-              Sonaphi is a vocal biomarker platform using machine learning to detect COVID-19 from voice recordings. The existing iOS app had collected around 4,000 voice samples but struggled to keep up with rapidly evolving research on vaccines, variants, and symptoms.
+              Sonaphi is a startup that uses vocal biomarkers to assess health conditions through the sound of your voice. It uses a particular algorithm to analyze your voice. It could even tell if we ate a banana within the last 24 hours.
             </p>
+
+            <div className="rounded-2xl overflow-hidden border border-gray-100 bg-black mb-8">
+              <video
+                src="/sonaphi-vri.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-auto block"
+              />
+            </div>
+
+            <p className="text-[15px] text-gray-500 leading-relaxed mb-6">
+              The world was in a panic in 2020, and our company set out to build a test that uses just your voice instead of the painful, time-consuming, and inaccessible swab tests. Enter <span className="font-semibold text-gray-700">Checkup</span>, an app by Sonaphi that detects COVID-19 from a 30-second voice recording and returns a result in minutes with around 88% accuracy.
+            </p>
+
+            <div className="flex justify-center gap-6 mb-8 flex-wrap">
+              {['/sonaphi-checkup.png', '/sonaphi-checkup2.png'].map(src => (
+                <div
+                  key={src}
+                  className="relative shadow-2xl"
+                  style={{
+                    width: 200,
+                    aspectRatio: '9 / 19',
+                    background: 'linear-gradient(145deg, #1a1a22, #0a0a0e)',
+                    borderRadius: 32,
+                    padding: 6,
+                  }}
+                >
+                  <div className="relative w-full h-full overflow-hidden bg-white" style={{ borderRadius: 26 }}>
+                    {/* Notch */}
+                    <div className="absolute top-1 left-1/2 -translate-x-1/2 z-10" style={{ width: 64, height: 16, borderRadius: 8, background: '#0a0a0e' }} />
+                    <img src={src} alt="Checkup app screen" className="absolute inset-0 w-full h-full object-cover" />
+                  </div>
+                </div>
+              ))}
+            </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
               {[
@@ -161,6 +227,19 @@ export default function SonaphiCaseStudy() {
               ))}
             </div>
 
+            <p className="text-[15px] text-gray-500 leading-relaxed mb-6">
+              <span className="font-semibold text-gray-700">VRI</span>, or Voice Research Initiative, is a research app that is the backbone of Checkup. It has collected around 4,000 voice samples but struggled to keep up with rapidly evolving research on vaccines, variants, and symptoms.
+            </p>
+
+            <div className="flex justify-center mb-6">
+              <img
+                src="/sonaphi-vriimages.png"
+                alt="VRI app screens"
+                className="h-auto block"
+                style={{ maxWidth: 440 }}
+              />
+            </div>
+
             <p className="text-[15px] text-gray-500 leading-relaxed">
               As the founding designer, I partnered closely with the clinical, engineering, and product teams to reshape the app so it could continue training the AI while keeping participants engaged over many months of research.
             </p>
@@ -170,6 +249,9 @@ export default function SonaphiCaseStudy() {
           <ContentSection id="problem">
             <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-medium mb-3">Problem</p>
             <h2 className="font-serif text-3xl text-gray-900 leading-tight mb-6">A Research Tool Falling Behind Its Science</h2>
+            <p className="text-[15px] text-gray-500 leading-relaxed mb-6">
+              I designed the original VRI app from scratch with no user feedback, framed primarily as a tool for doctors to capture and review participant information. After launch, it became clear the experience needed a redesign, both to make the flow usable for the broader participant base and to keep up with the rapidly evolving research coming out of COVID-19.
+            </p>
             <p className="text-[15px] text-gray-500 leading-relaxed mb-8">
               The app needed to evolve on two fronts: capturing new research signals (vaccines, variants, changing symptoms) and giving participants enough feedback to keep them engaged long enough to train the model.
             </p>
