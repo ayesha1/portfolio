@@ -2,6 +2,74 @@ import { useEffect, useRef, useState } from 'react'
 import ChatbotDemo from './ChatbotDemo'
 import VRIScreen from './VRIScreen'
 
+/* Forma cover — crossfades + scales between Button1 and Button2 in a continuous loop. */
+function FormaButtonsCover() {
+  const [phase, setPhase] = useState(0) // 0 = button1 visible, 1 = button2 visible
+
+  useEffect(() => {
+    const t = setInterval(() => setPhase(p => (p === 0 ? 1 : 0)), 2400)
+    return () => clearInterval(t)
+  }, [])
+
+  return (
+    <div
+      className="absolute inset-0 flex items-center justify-center overflow-hidden"
+      style={{
+        background: 'radial-gradient(ellipse at 30% 30%, #f4ecff 0%, #e8e2f7 50%, #d8d0ee 100%)',
+      }}
+    >
+      {/* Soft ambient glow */}
+      <div
+        className="absolute"
+        style={{
+          width: '70%', height: '70%',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(124,92,255,0.18) 0%, transparent 70%)',
+          filter: 'blur(30px)',
+          animation: 'formaPulse 6s ease-in-out infinite',
+        }}
+      />
+
+      {/* Stacked buttons — crossfade with subtle scale */}
+      <img
+        src="/forma-button1.png"
+        alt=""
+        className="absolute"
+        style={{
+          width: '60%',
+          maxWidth: 320,
+          height: 'auto',
+          opacity: phase === 0 ? 1 : 0,
+          transform: phase === 0 ? 'scale(1)' : 'scale(0.94)',
+          transition: 'opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1)',
+          filter: 'drop-shadow(0 12px 28px rgba(60, 30, 120, 0.18))',
+        }}
+      />
+      <img
+        src="/forma-button2.png"
+        alt=""
+        className="absolute"
+        style={{
+          width: '60%',
+          maxWidth: 320,
+          height: 'auto',
+          opacity: phase === 1 ? 1 : 0,
+          transform: phase === 1 ? 'scale(1)' : 'scale(0.94)',
+          transition: 'opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1)',
+          filter: 'drop-shadow(0 12px 28px rgba(60, 30, 120, 0.18))',
+        }}
+      />
+
+      <style>{`
+        @keyframes formaPulse {
+          0%, 100% { transform: scale(1); opacity: 0.9; }
+          50%      { transform: scale(1.08); opacity: 1; }
+        }
+      `}</style>
+    </div>
+  )
+}
+
 const caseStudies = [
   {
     tags: ['AI Design', 'Conversation Design'],
@@ -359,7 +427,7 @@ export default function CaseStudiesSection({ onOpenTelus, onOpenViewer, onOpenSo
             {[
               { title: 'Apple Enterprise Cloud Management', tag: 'Enterprise', challenge: 'Scaling', industry: 'Enterprise', image: '/apple.png' },
               { title: 'Napster Spaces', subtitle: 'AI Avatars to Agents', tag: 'Web Platform', challenge: 'Growth', industry: 'AI', video: '/new_spaces.mov', onOpen: 'spaces' },
-              { title: 'Forma', subtitle: 'AI Image Editor', tag: 'AI / Design Tool', challenge: '0→1', industry: 'AI', video: '/formanew.mov' },
+              { title: 'Forma', subtitle: 'AI Image Editor · concept walkthrough', tag: 'AI / Design Tool', challenge: '0→1', industry: 'AI', video: '/forma-anim.mp4', light: true, href: 'https://www.youtube.com/watch?v=bZqROSbOVIM' },
               { title: '3D World Editor', subtitle: 'Democratizing 3D World Building', tag: 'Design System', challenge: '0→1', industry: 'Immersive', video: '/editor2.mp4' },
               { title: 'Blue Shield & Facebook', subtitle: 'Anti-Bullying App', tag: 'Social Wellness', challenge: '0→1', industry: 'Social', image: '/blue.png', light: true, bordered: true, contain: true },
               { title: 'HealMotion', subtitle: 'Mixed Reality Physical Therapy', tag: 'Mixed Reality / MIT', challenge: 'Ambiguous', industry: 'HealthTech', video: '/heal.mp4' },
@@ -382,7 +450,9 @@ export default function CaseStudiesSection({ onOpenTelus, onOpenViewer, onOpenSo
                 className={`group relative block rounded-2xl overflow-hidden aspect-[4/3] hover:-translate-y-1 transition-all duration-300 ${project.bordered ? 'border border-gray-200 bg-white' : 'bg-gradient-to-br from-gray-100 to-gray-50'}`}
               >
                 {/* Image or placeholder */}
-                {project.video ? (
+                {project.cover === 'forma-buttons' ? (
+                  <FormaButtonsCover />
+                ) : project.video ? (
                   <video src={project.video} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
                 ) : project.image ? (
                   <img src={project.image} alt={project.title} className={`absolute inset-0 w-full h-full ${project.contain ? 'object-contain p-20' : 'object-cover'}`} />
@@ -394,7 +464,7 @@ export default function CaseStudiesSection({ onOpenTelus, onOpenViewer, onOpenSo
 
                 {/* Bottom label with blur */}
                 <div className="absolute bottom-0 left-0 right-0 overflow-hidden rounded-b-2xl">
-                  <div className={`backdrop-blur-[20px] px-5 py-4 ${project.light ? 'bg-white/40 border-t border-black/10' : 'bg-black/10'}`}>
+                  <div className={`backdrop-blur-[20px] px-5 py-4 ${project.light ? 'bg-white/40' : 'bg-black/10'}`}>
                     <span className={`text-[11px] uppercase tracking-wider font-semibold ${project.light ? 'text-gray-500' : 'text-white/60'}`}>{project.tag}</span>
                     <h4 className={`text-[15px] font-semibold mt-1 ${project.light ? 'text-gray-900' : 'text-white'}`}>{project.title}</h4>
                     {project.subtitle && <p className={`text-[12px] mt-0.5 ${project.light ? 'text-gray-600' : 'text-white/70'}`}>{project.subtitle}</p>}

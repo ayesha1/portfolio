@@ -351,6 +351,10 @@ export default function TelusCaseStudy() {
               <p className="font-semibold text-gray-600">Team</p>
               <p>PM, Tech Lead, 3 Devs</p>
             </div>
+            <div className="text-center">
+              <p className="font-semibold text-gray-600">Year</p>
+              <p>2021</p>
+            </div>
           </div>
         </div>
 
