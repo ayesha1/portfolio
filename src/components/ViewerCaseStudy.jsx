@@ -662,7 +662,6 @@ export default function ViewerCaseStudy() {
               </div>
               <p className="text-[12px] text-gray-400 italic mt-2 text-center">The original Viewer experience users tested against.</p>
             </div>
-
             {/* Usability test results */}
             <div className="flex gap-6 mb-8 p-6 rounded-2xl bg-gray-50">
               {[
@@ -823,6 +822,9 @@ export default function ViewerCaseStudy() {
               <p className="text-[11px] uppercase tracking-[0.15em] text-[#4b286d]/70 font-semibold mb-1">Interactive Prototype</p>
               <p className="text-[13px] text-gray-500 mb-4">Try it below.</p>
               <ViewerPrototype />
+              <p className="text-[13px] text-gray-600 leading-relaxed mt-4">
+                We added a settings layer for the default Viewer so world managers could choose how visitors entered their space: <span className="font-semibold text-gray-800">third-person</span>, <span className="font-semibold text-gray-800">first-person</span>, or <span className="font-semibold text-gray-800">no avatar</span>, letting each brand tune the level of immersion to fit their audience.
+              </p>
             </div>
             <div className="space-y-4">
               {[
